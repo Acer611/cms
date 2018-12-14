@@ -1,0 +1,118 @@
+<!--# layout("/common/layout.html",{"jsBase":"/js/media/resource/"}){ -->
+
+<form class="layui-form layui-form-pane" id="addForm">
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">mediaguid</label>
+				<div class="layui-input-inline">
+					<input type="text" name="mediaguid" class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">filetitle</label>
+				<div class="layui-input-inline">
+					<input type="text" name="filetitle" class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">filefullname</label>
+				<div class="layui-input-inline">
+					<input type="text" name="filefullname" class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">linkurl</label>
+				<div class="layui-input-inline">
+					<input type="text" name="linkurl" class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">imageurl</label>
+				<div class="layui-input-inline">
+					<input type="text" name="imageurl" class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">filesize</label>
+				<div class="layui-input-inline">
+					<input type="text" name="filesize" class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">duration</label>
+				<div class="layui-input-inline">
+					<input type="text" name="duration" class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">fileextension</label>
+				<div class="layui-input-inline">
+					<input type="text" name="fileextension" class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">localvalid</label>
+				<div class="layui-input-inline">
+					<input type="text" name="localvalid" class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">linkvalid</label>
+				<div class="layui-input-inline">
+					<input type="text" name="linkvalid" class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">ordernumber</label>
+				<div class="layui-input-inline">
+					<input type="text" name="ordernumber" class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">createdate</label>
+				<div class="layui-input-inline">
+					<input type="text" name="createdate" class="layui-input input-date" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">updatedate</label>
+				<div class="layui-input-inline">
+					<input type="text" name="updatedate" class="layui-input input-date" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <layui:submitButtons id="addButton" />
+</form>
+<!--#} -->
+<script>
+layui.use(['add'], function(){
+    var resourceAdd = layui.add
+    resourceAdd.init();
+});
+</script>

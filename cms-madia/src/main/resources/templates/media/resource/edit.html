@@ -1,0 +1,120 @@
+<!--# layout("/common/layout.html",{"jsBase":"/js/media/resource/"}){ -->
+
+<form class="layui-form layui-form-pane" id="updateForm">
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">mediaguid</label>
+				<div class="layui-input-inline">
+					<input type="text" id="mediaguid" name="mediaguid"  value="${resource.mediaguid}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">filetitle</label>
+				<div class="layui-input-inline">
+					<input type="text" id="filetitle" name="filetitle"  value="${resource.filetitle}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">filefullname</label>
+				<div class="layui-input-inline">
+					<input type="text" id="filefullname" name="filefullname"  value="${resource.filefullname}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">linkurl</label>
+				<div class="layui-input-inline">
+					<input type="text" id="linkurl" name="linkurl"  value="${resource.linkurl}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">imageurl</label>
+				<div class="layui-input-inline">
+					<input type="text" id="imageurl" name="imageurl"  value="${resource.imageurl}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">filesize</label>
+				<div class="layui-input-inline">
+					<input type="text" id="filesize" name="filesize"  value="${resource.filesize}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">duration</label>
+				<div class="layui-input-inline">
+					<input type="text" id="duration" name="duration"  value="${resource.duration}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">fileextension</label>
+				<div class="layui-input-inline">
+					<input type="text" id="fileextension" name="fileextension"  value="${resource.fileextension}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">localvalid</label>
+				<div class="layui-input-inline">
+					<input type="text" id="localvalid" name="localvalid"  value="${resource.localvalid}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">linkvalid</label>
+				<div class="layui-input-inline">
+					<input type="text" id="linkvalid" name="linkvalid"  value="${resource.linkvalid}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">ordernumber</label>
+				<div class="layui-input-inline">
+					<input type="text" id="ordernumber" name="ordernumber"  value="${resource.ordernumber}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">createdate</label>
+				<div class="layui-input-inline">
+					<input type="text" id="createdate" name="createdate"  value="${resource.createdate,"yyyy-MM-dd"}"   class="layui-input input-date" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">updatedate</label>
+				<div class="layui-input-inline">
+					<input type="text" id="updatedate" name="updatedate"  value="${resource.updatedate,"yyyy-MM-dd"}"   class="layui-input input-date" >
+				</div>
+            </div>
+        </div>
+    </div>
+	<!-- 业务对象须有hidden字段，保存delFlag和version字段-->
+    <input type="hidden" name="mediafileinfoid" value=${resource.mediafileinfoid} />
+    <layui:submitButtons id="updateButton" />
+</form>
+<!--#} -->
+<script>
+layui.use(['edit'], function(){
+    var resourceEdit = layui.edit
+    resourceEdit.init();
+});
+</script>

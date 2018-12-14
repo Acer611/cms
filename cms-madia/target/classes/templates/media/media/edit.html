@@ -1,0 +1,184 @@
+<!--# layout("/common/layout.html",{"jsBase":"/js/media/media/"}){ -->
+
+<form class="layui-form layui-form-pane" id="updateForm">
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">mediainfoid</label>
+				<div class="layui-input-inline">
+					<input type="text" id="mediainfoid" name="mediainfoid"  value="${media.mediainfoid}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">专辑名</label>
+				<div class="layui-input-inline">
+					<input type="text" id="medianame" name="medianame"  value="${media.medianame}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">专辑类型</label>
+				<div class="layui-input-inline">
+					<input type="text" id="mediatype" name="mediatype"  value="${media.mediatype}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">sourceunit</label>
+				<div class="layui-input-inline">
+					<input type="text" id="sourceunit" name="sourceunit"  value="${media.sourceunit}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">makingunit</label>
+				<div class="layui-input-inline">
+					<input type="text" id="makingunit" name="makingunit"  value="${media.makingunit}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">authunit</label>
+				<div class="layui-input-inline">
+					<input type="text" id="authunit" name="authunit"  value="${media.authunit}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">authstate</label>
+				<div class="layui-input-inline">
+					<input type="text" id="authstate" name="authstate"  value="${media.authstate}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">mediastate</label>
+				<div class="layui-input-inline">
+					<input type="text" id="mediastate" name="mediastate"  value="${media.mediastate}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">icon</label>
+				<div class="layui-input-inline">
+					<input type="text" id="icon" name="icon"  value="${media.icon}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">imageurl</label>
+				<div class="layui-input-inline">
+					<input type="text" id="imageurl" name="imageurl"  value="${media.imageurl}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">note</label>
+				<div class="layui-input-inline">
+					<input type="text" id="note" name="note"  value="${media.note}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">filecount</label>
+				<div class="layui-input-inline">
+					<input type="text" id="filecount" name="filecount"  value="${media.filecount}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">filesize</label>
+				<div class="layui-input-inline">
+					<input type="text" id="filesize" name="filesize"  value="${media.filesize}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">duration</label>
+				<div class="layui-input-inline">
+					<input type="text" id="duration" name="duration"  value="${media.duration}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">localvalid</label>
+				<div class="layui-input-inline">
+					<input type="text" id="localvalid" name="localvalid"  value="${media.localvalid}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">linkvalid</label>
+				<div class="layui-input-inline">
+					<input type="text" id="linkvalid" name="linkvalid"  value="${media.linkvalid}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">createdate</label>
+				<div class="layui-input-inline">
+					<input type="text" id="createdate" name="createdate"  value="${media.createdate,"yyyy-MM-dd"}"   class="layui-input input-date" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">updatedate</label>
+				<div class="layui-input-inline">
+					<input type="text" id="updatedate" name="updatedate"  value="${media.updatedate,"yyyy-MM-dd"}"   class="layui-input input-date" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">deletenote</label>
+				<div class="layui-input-inline">
+					<input type="text" id="deletenote" name="deletenote"  value="${media.deletenote}"   class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">deletedate</label>
+				<div class="layui-input-inline">
+					<input type="text" id="deletedate" name="deletedate"  value="${media.deletedate,"yyyy-MM-dd"}"   class="layui-input input-date" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">shortcode</label>
+				<div class="layui-input-inline">
+					<input type="text" id="shortcode" name="shortcode"  value="${media.shortcode}"   class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+	<!-- 业务对象须有hidden字段，保存delFlag和version字段-->
+    <input type="hidden" name="mediaguid" value=${media.mediaguid} />
+    <layui:submitButtons id="updateButton" />
+</form>
+<!--#} -->
+<script>
+layui.use(['edit'], function(){
+    var mediaEdit = layui.edit
+    mediaEdit.init();
+});
+</script>
