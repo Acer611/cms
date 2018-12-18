@@ -39,7 +39,10 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         field : 'imageurl',
                         title : '封面图',
                         width: 150,
-                        fixed: 'left'
+                        fixed: 'left',
+                        templet: function(res){
+                            return  '<div><image class="layui-table-link">'+ res.imageurl +'</image></div>'
+                        }
                     },
                     {
                         field : 'filecount',
@@ -80,7 +83,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                     {
                         field : 'mediaguid',
                         title : '专辑ID',
-                        width: 100,
+                        width: 200,
 
                     },
                     {
@@ -152,6 +155,18 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         var delView = layui.del
                         delView.delBatch();
                     });
+                },
+                batchOnline : function () {
+                    layui.use(['batchOnline'], function(){
+                        var batchOnlineView = layui.batchOnline
+                        batchOnlineView.batchOnline();
+                    });
+                },
+                batchOffline : function () {
+                    layui.use(['batchOffline'], function(){
+                        var batchOfflineView = layui.batchOffline
+                        batchOfflineView.batchOffline();
+                    });
                 }
         };
             $('.ext-toolbar').on('click', function() {
@@ -172,6 +187,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         callback();
                     })
                     alert("上线成功")
+                    dataReload();
 
                 } else if(layEvent === 'edit'){
                     var url = "/media/media/edit.do?mediaguid="+data.mediaguid;
@@ -183,6 +199,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         callback();
                     })
                     alert("下线成功")
+                    dataReload();
                 }
             });
 

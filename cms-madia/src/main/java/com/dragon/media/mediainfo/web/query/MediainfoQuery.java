@@ -10,14 +10,16 @@ import java.util.Date;
  *Mediainfo查询
  */
 public class MediainfoQuery extends PageParam {
+
+    @Query(name = "专辑ID", display = true)
+    private String mediaguid;
     @Query(name = "专辑名", display = true)
     private String medianame;
     @Query(name = "专辑类型",type = Query.TYPE_DICT, dict="resource.state" ,display = true)
     private Integer mediatype;
     @Query(name = "专辑状态",type = Query.TYPE_DICT, dict="album.status",display = true)
     private Integer mediastate;
-    @Query(name = "专辑ID", display = false)
-    private String ids;
+
 
     public String getMedianame(){
         return  medianame;
@@ -40,11 +42,11 @@ public class MediainfoQuery extends PageParam {
         this.mediastate = mediastate;
     }
 
-    public String getIds() {
-        return ids;
+    public String getMediaguid() {
+        return mediaguid;
     }
 
-    public void setIds(String ids) {
-        this.ids = ids;
+    public void setMediaguid(String mediaguid) {
+        this.mediaguid = mediaguid;
     }
 }

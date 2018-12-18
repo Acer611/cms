@@ -11,9 +11,20 @@ layui.define([], function(exports) {
                 Common.post("/media/media/delete.json",{"ids":ids},function(){
                     callback();
                 })
-            }
+            },
+            batchOnline:function (ids,callback) {
+                Common.post("/media/media/online.json",{"ids":ids},function(){
+                    callback();
+                })
+            },
+            batchOffline:function (ids,callback) {
+                 Common.post("/media/media/offline.json",{"ids":ids},function(){
+                    callback();
+            })
+        }
 
-		
+
+
     };
     exports('mediaApi',api);
 });

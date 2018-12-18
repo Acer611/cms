@@ -14,6 +14,9 @@ queryByCondition
     @if(!isEmpty(medianame)){
         and  t.MediaName LIKE #'%'+medianame+'%'#
     @}
+     @if(!isEmpty(mediaguid)){
+            and  t.MediaGuid LIKE #'%'+mediaguid+'%'#
+        @}
     @if(!isEmpty(mediatype)){
         and  t.MediaType =#mediatype#
     @}

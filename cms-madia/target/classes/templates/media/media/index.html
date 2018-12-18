@@ -6,11 +6,13 @@
     <!--<layui:accessButton function="media.add"  action="add">增加</layui:accessButton>
     <layui:accessButton function="media.edit"  action="edit">编辑</layui:accessButton>-->
     <layui:accessButton function="media.del"  action="del">删除</layui:accessButton>
+    <layui:accessButton function="media.online"  action="batchOnline">批量上线</layui:accessButton>
+    <layui:accessButton function="media.online"  action="batchOffline">批量下线</layui:accessButton>
    <!-- <layui:accessButton function="media.online"  action="new">未上线</layui:accessButton>
     <layui:accessButton function="media.online"  action="online">已上线</layui:accessButton>-->
 </div>
 
-<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+<!--<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
     <ul class="layui-tab-title">
         <li class="layui-this">网站设置</li>
         <li value = '1'>用户管理</li>
@@ -25,7 +27,7 @@
         <div class="layui-tab-item">内容4</div>
         <div class="layui-tab-item">内容5</div>
     </div>
-</div>
+</div>-->
 
 <table id="mediaTable" lay-filter="mediaTable"></table>
 <!--#} -->
@@ -44,12 +46,11 @@ layui.use(['index'], function(){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="offline">下线</a>
 </script>
 
-<script>
+<!--<script>
     layui.use('element', function(){
         var $ = layui.jquery
             ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
 
-alert(element)
 
         $('.site-demo-active').on('click', function(){
             var othis = $(this), type = othis.data('type');
@@ -58,4 +59,4 @@ alert(element)
 
 
     });
-</script>
+</script>-->
