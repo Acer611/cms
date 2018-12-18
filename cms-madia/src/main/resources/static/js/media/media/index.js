@@ -26,136 +26,113 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         type : 'checkbox',
                         fixed:'left',
                     },
-                {
 
-                    field : 'mediainfoid', 
-                        title : 'mediainfoid',
-                    fixed:'left',
-                        width : 60,
-                },
-                {
-
-                    field : 'mediaguid', 
-                        title : '唯一标识',
-                },
-                {
-
-                    field : 'medianame', 
+                    {
+                        field : 'medianame',
                         title : '专辑名',
-                },
-                {
+                        width: 150,
+                        fixed: 'left'
 
-                    field : 'mediatype', 
-                        title : '专辑类型',
-                },
-                {
+                     },
 
-                    field : 'sourceunit', 
-                        title : 'sourceunit',
-                },
-                {
+                    {
+                        field : 'imageurl',
+                        title : '封面图',
+                        width: 150,
+                        fixed: 'left'
+                    },
+                    {
+                        field : 'filecount',
+                        title : '音频数量',
+                        width: 100
+                    },
 
-                    field : 'makingunit', 
-                        title : 'makingunit',
-                },
-                {
+                    {
+                        field : 'filecount',
+                        title : '分类',
+                        width: 60
+                    },
+                    {
+                        field : 'mediatype',
+                        title : '资源类型',
+                        width: 100,
+                    },
+                    {
+                        field : 'mediatype',
+                        title : '演播者',
+                        width: 100,
+                    },
+                    {
+                        field : 'price',
+                        title : '定价',
+                        width: 60,
+                    },
+                    {
+                        field : 'duration',
+                        title : '时长',
+                        width: 60,
+                    },
+                    {
+                        field : 'filesize',
+                        title : '文件大小',
+                        width: 100,
+                    },
+                    {
+                        field : 'mediaguid',
+                        title : '专辑ID',
+                        width: 100,
 
-                    field : 'authunit', 
-                        title : 'authunit',
-                },
-                {
+                    },
+                    {
+                        field : 'authstate',
+                        title : '授权状态',
+                        width: 100,
+                    },
+                    {
+                        field : 'createdate',
+                        title : '同步时间',
+                        width: 180,
+                        sort: true,
+                    },
+                    {
+                        field : 'updatedate',
+                        title : '更新时间',
+                        width: 180,
+                        sort: true,
+                    },
+                    {
+                        field : 'onlineTime',
+                        title : '上线时间',
+                        width: 180,
+                        sort: true,
+                    },
+                    {
+                        field : 'mediastate',
+                        title : '专辑状态',
+                        width: 100,
+                    },
 
-                    field : 'authstate', 
-                        title : 'authstate',
-                },
-                {
-
-                    field : 'mediastate', 
-                        title : 'mediastate',
-                },
-                {
-
-                    field : 'icon', 
-                        title : 'icon',
-                },
-                {
-
-                    field : 'imageurl', 
-                        title : 'imageurl',
-                },
-                {
-
-                    field : 'note', 
-                        title : 'note',
-                },
-                {
-
-                    field : 'filecount', 
-                        title : 'filecount',
-                },
-                {
-
-                    field : 'filesize', 
-                        title : 'filesize',
-                },
-                {
-
-                    field : 'duration', 
-                        title : 'duration',
-                },
-                {
-
-                    field : 'localvalid', 
-                        title : 'localvalid',
-                },
-                {
-
-                    field : 'linkvalid', 
-                        title : 'linkvalid',
-                },
-                {
-
-                    field : 'createdate', 
-                        title : 'createdate',
-                },
-                {
-
-                    field : 'updatedate', 
-                        title : 'updatedate',
-                },
-                {
-
-                    field : 'deletenote', 
-                        title : 'deletenote',
-                },
-                {
-
-                    field : 'deletedate', 
-                        title : 'deletedate',
-                },
-                {
-
-                    field : 'shortcode', 
-                        title : 'shortcode',
-                }
+                    {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
 
         ] ]
 
         });
 
-            table.on('checkbox(mediaTable)', function(obj){
-                var media = obj.data;
-                if(obj.checked){
-                    //按钮逻辑Lib.buttonEnable()
-                }else{
+        table.on('checkbox(mediaTable)', function(obj){
+            var media = obj.data;
+            if(obj.checked){
+                //按钮逻辑Lib.buttonEnable()
+            }else{
 
-                }
+            }
+
             })
         },
 
         initSearchForm:function(){
             Lib.initSearchForm( $("#searchForm"),mediaTable,form);
         },
+
         initToolBar:function(){
             toolbar = {
                 add : function() { // 获取选中数据
@@ -180,9 +157,38 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
             $('.ext-toolbar').on('click', function() {
                 var type = $(this).data('type');
                 toolbar[type] ? toolbar[type].call(this) : '';
+
+
             });
+
+            //监听行工具事件
+            table.on('tool(mediaTable)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                    ,layEvent = obj.event; //获得 lay-event 对应的值
+                if(layEvent === 'online'){
+                    var ids = new Array();
+                    ids[0] = data.mediaguid;
+                    Common.post("/media/media/online.json",{"ids":data.mediaguid},function(){
+                        callback();
+                    })
+                    alert("上线成功")
+
+                } else if(layEvent === 'edit'){
+                    var url = "/media/media/edit.do?mediaguid="+data.mediaguid;
+                    Common.openDlg(url,"Mediainfo管理>"+data.mediainfoid+">编辑");
+                }else if(layEvent === 'offline'){
+                    var ids = new Array();
+                    ids[0] = data.mediaguid;
+                    Common.post("/media/media/offline.json",{"ids":data.mediaguid},function(){
+                        callback();
+                    })
+                    alert("下线成功")
+                }
+            });
+
         }
     }
     exports('index',view);
+
 
 });

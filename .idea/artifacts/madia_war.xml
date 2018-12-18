@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="madia:war">
+    <output-path>$PROJECT_DIR$/cms-madia/target</output-path>
+    <root id="archive" name="madia-1.0.war">
+      <element id="artifact" artifact-name="madia:war exploded" />
+    </root>
+  </artifact>
+</component>

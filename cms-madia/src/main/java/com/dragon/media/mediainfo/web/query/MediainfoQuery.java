@@ -12,8 +12,13 @@ import java.util.Date;
 public class MediainfoQuery extends PageParam {
     @Query(name = "专辑名", display = true)
     private String medianame;
-    @Query(name = "专辑类型", display = true)
+    @Query(name = "专辑类型",type = Query.TYPE_DICT, dict="resource.state" ,display = true)
     private Integer mediatype;
+    @Query(name = "专辑状态",type = Query.TYPE_DICT, dict="album.status",display = true)
+    private Integer mediastate;
+    @Query(name = "专辑ID", display = false)
+    private String ids;
+
     public String getMedianame(){
         return  medianame;
     }
@@ -26,5 +31,20 @@ public class MediainfoQuery extends PageParam {
     public void setMediatype(Integer mediatype ){
         this.mediatype = mediatype;
     }
- 
+
+    public Integer getMediastate() {
+        return mediastate;
+    }
+
+    public void setMediastate(Integer mediastate) {
+        this.mediastate = mediastate;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
 }

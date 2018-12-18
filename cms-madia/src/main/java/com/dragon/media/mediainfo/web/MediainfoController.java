@@ -140,8 +140,32 @@ public class MediainfoController{
         if (ids.endsWith(",")) {
             ids = StringUtils.substringBeforeLast(ids, ",");
         }
-        List<Long> idList = ConvertUtil.str2longs(ids);
+        List<String> idList = ConvertUtil.converList(ids);
         mediaService.batchDelMediainfo(idList);
+        return new JsonResult().success();
+    }
+
+    @PostMapping(MODEL + "/online.json")
+    @Function("media.media.online")
+    @ResponseBody
+    public JsonResult online(String ids) {
+        if (ids.endsWith(",")) {
+            ids = StringUtils.substringBeforeLast(ids, ",");
+        }
+        List<String> idList = ConvertUtil.converList(ids);
+        mediaService.batchOnlineMediainfo(idList);
+        return new JsonResult().success();
+    }
+
+    @PostMapping(MODEL + "/offline.json")
+    @Function("media.media.online")
+    @ResponseBody
+    public JsonResult offline(String ids) {
+        if (ids.endsWith(",")) {
+            ids = StringUtils.substringBeforeLast(ids, ",");
+        }
+        List<String> idList = ConvertUtil.converList(ids);
+        mediaService.batchOfflineMediainfo(idList);
         return new JsonResult().success();
     }
     

@@ -1,5 +1,6 @@
 package com.dragon.media.mediainfo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.beetl.sql.core.engine.PageQuery;
@@ -29,11 +30,38 @@ public class MediainfoService extends BaseService<Mediainfo>{
         return ret;
     }
 
-    public void batchDelMediainfo(List<Long> ids){
+    public void batchDelMediainfo(List<String> ids){
         try {
             mediaDao.batchDelMediainfoByIds(ids);
         } catch (Exception e) {
             throw new PlatformException("批量删除Mediainfo失败", e);
+        }
+    }
+
+    /**
+     * 批量上线
+     * @param ids
+     */
+    public void batchOnlineMediainfo(List<String> ids) {
+        try {
+            Date date = new Date();
+            Date updateDate = new Date();
+            mediaDao.batchOnlineMediainfoByIds(ids,date,updateDate);
+        } catch (Exception e) {
+            throw new PlatformException("批量上线Mediainfo失败", e);
+        }
+    }
+
+    /**
+     * 批量下线
+     * @param idList
+     */
+    public void batchOfflineMediainfo(List<String> idList) {
+        try {
+            Date updateDate = new Date();
+            mediaDao.batchOfflineMediainfoByIds(idList,updateDate);
+        } catch (Exception e) {
+            throw new PlatformException("批量下线Mediainfo失败", e);
         }
     }
 }

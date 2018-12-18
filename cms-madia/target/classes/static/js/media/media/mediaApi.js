@@ -12,6 +12,7 @@ layui.define([], function(exports) {
                     callback();
                 })
             }
+
 		
     };
     exports('mediaApi',api);

@@ -96,7 +96,14 @@ public class Mediainfo extends BaseEntity{
 	
 
     private String shortcode ;
-	
+
+    //定价
+    private Double price;
+    //上线时间
+    private Date onlineTime;
+    //是否删除
+    private Integer delFlag;
+
     public Mediainfo()
     {
     }
@@ -255,5 +262,27 @@ public class Mediainfo extends BaseEntity{
         this.shortcode = shortcode;
     }
 
+    public Double getPrice() {
+        return price;
+    }
 
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Date getOnlineTime() {
+        return onlineTime;
+    }
+
+    public void setOnlineTime(Date onlineTime) {
+        this.onlineTime = onlineTime;
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
 }
