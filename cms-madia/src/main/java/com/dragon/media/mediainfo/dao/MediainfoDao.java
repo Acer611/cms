@@ -23,4 +23,7 @@ public interface MediainfoDao extends BaseMapper<Mediainfo>{
 
     //批量下线
     public void batchOfflineMediainfoByIds( List<String> ids,Date updateDate);
+
+    //更新
+    void update(Mediainfo mediainfo);
 }

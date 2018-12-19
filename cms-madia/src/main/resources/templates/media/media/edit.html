@@ -1,176 +1,70 @@
 <!--# layout("/common/layout.html",{"jsBase":"/js/media/media/"}){ -->
 
 <form class="layui-form layui-form-pane" id="updateForm">
+
+
     <div class="layui-row">
         <div class="layui-form-item">
+
             <div class="layui-inline">
-            <label class="layui-form-label">mediainfoid</label>
-				<div class="layui-input-inline">
-					<input type="text" id="mediainfoid" name="mediainfoid"  value="${media.mediainfoid}"   class="layui-input" >
-				</div>
+                <label class="layui-form-label">专辑封面图</label>
+                    <div class="layui-input-inline">
+                        <!--<input type="text" id="imageurl" name="imageurl"  value="${media.imageurl}"   class="layui-input" >-->
+                        <img id="imageurl" name="imageurl" src="${media.imageurl}" style="width: 200px; height: 200px">
+                    </div>
             </div>
+
             <div class="layui-inline">
-            <label class="layui-form-label">专辑名</label>
-				<div class="layui-input-inline">
-					<input type="text" id="medianame" name="medianame"  value="${media.medianame}"   class="layui-input" >
-				</div>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="test1">上传图片</button>
+                    <div class="layui-upload-list">
+                        <!--预览图片-->
+                        <img class="layui-upload-img" id="demo1">
+                        <!--提示上传信息-->
+                        <p id="demoText"></p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+
     <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">专辑类型</label>
-				<div class="layui-input-inline">
-					<input type="text" id="mediatype" name="mediatype"  value="${media.mediatype}"   class="layui-input" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">sourceunit</label>
-				<div class="layui-input-inline">
-					<input type="text" id="sourceunit" name="sourceunit"  value="${media.sourceunit}"   class="layui-input" >
-				</div>
-            </div>
+        <div style="margin: 50px auto; ">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">添加分类</label>
+                    <div class="layui-input-inline">
+                        <select  id = "assetstype" name="assetstype" lay-filter="assetstype">
+                            <option value="">一级分类</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" style="display: none;">
+                        <select id = "subtype" name="subtype" lay-filter="subtype">
+                            <option value="">二级分类</option>
+                        </select>
+                    </div>
+
+                </div>
+            </form>
         </div>
+
     </div>
+
+
+
     <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">makingunit</label>
-				<div class="layui-input-inline">
-					<input type="text" id="makingunit" name="makingunit"  value="${media.makingunit}"   class="layui-input" >
-				</div>
+            <div>
+                <label class="layui-form-label">专辑介绍</label>
             </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">authunit</label>
-				<div class="layui-input-inline">
-					<input type="text" id="authunit" name="authunit"  value="${media.authunit}"   class="layui-input" >
-				</div>
+
+            <div>
+                <textarea id="note" name="note"  class="layui-input"  lay-verify="note"  >${media.note}</textarea>
             </div>
-        </div>
+
     </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">authstate</label>
-				<div class="layui-input-inline">
-					<input type="text" id="authstate" name="authstate"  value="${media.authstate}"   class="layui-input" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">mediastate</label>
-				<div class="layui-input-inline">
-					<input type="text" id="mediastate" name="mediastate"  value="${media.mediastate}"   class="layui-input" >
-				</div>
-            </div>
-        </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">icon</label>
-				<div class="layui-input-inline">
-					<input type="text" id="icon" name="icon"  value="${media.icon}"   class="layui-input" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">imageurl</label>
-				<div class="layui-input-inline">
-					<input type="text" id="imageurl" name="imageurl"  value="${media.imageurl}"   class="layui-input" >
-				</div>
-            </div>
-        </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">note</label>
-				<div class="layui-input-inline">
-					<input type="text" id="note" name="note"  value="${media.note}"   class="layui-input" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">filecount</label>
-				<div class="layui-input-inline">
-					<input type="text" id="filecount" name="filecount"  value="${media.filecount}"   class="layui-input" >
-				</div>
-            </div>
-        </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">filesize</label>
-				<div class="layui-input-inline">
-					<input type="text" id="filesize" name="filesize"  value="${media.filesize}"   class="layui-input" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">duration</label>
-				<div class="layui-input-inline">
-					<input type="text" id="duration" name="duration"  value="${media.duration}"   class="layui-input" >
-				</div>
-            </div>
-        </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">localvalid</label>
-				<div class="layui-input-inline">
-					<input type="text" id="localvalid" name="localvalid"  value="${media.localvalid}"   class="layui-input" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">linkvalid</label>
-				<div class="layui-input-inline">
-					<input type="text" id="linkvalid" name="linkvalid"  value="${media.linkvalid}"   class="layui-input" >
-				</div>
-            </div>
-        </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">createdate</label>
-				<div class="layui-input-inline">
-					<input type="text" id="createdate" name="createdate"  value="${media.createdate,"yyyy-MM-dd"}"   class="layui-input input-date" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">updatedate</label>
-				<div class="layui-input-inline">
-					<input type="text" id="updatedate" name="updatedate"  value="${media.updatedate,"yyyy-MM-dd"}"   class="layui-input input-date" >
-				</div>
-            </div>
-        </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">deletenote</label>
-				<div class="layui-input-inline">
-					<input type="text" id="deletenote" name="deletenote"  value="${media.deletenote}"   class="layui-input" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">deletedate</label>
-				<div class="layui-input-inline">
-					<input type="text" id="deletedate" name="deletedate"  value="${media.deletedate,"yyyy-MM-dd"}"   class="layui-input input-date" >
-				</div>
-            </div>
-        </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">shortcode</label>
-				<div class="layui-input-inline">
-					<input type="text" id="shortcode" name="shortcode"  value="${media.shortcode}"   class="layui-input" >
-				</div>
-            </div>
-        </div>
-    </div>
+
+
 	<!-- 业务对象须有hidden字段，保存delFlag和version字段-->
     <input type="hidden" name="mediaguid" value=${media.mediaguid} />
     <layui:submitButtons id="updateButton" />
@@ -181,4 +75,101 @@ layui.use(['edit'], function(){
     var mediaEdit = layui.edit
     mediaEdit.init();
 });
+</script>
+
+<script>
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        $ = layui.jquery;
+        form = layui.form;
+
+        layedit.set({
+            uploadImage: {
+                url: '' //接口url
+                ,type: '' //默认post
+            }
+        });
+        var note =   layedit.build('note'); //建立编辑器
+
+        form.verify({
+            note:function () {
+                layedit.sync(note);
+            }
+        });
+
+    });
+</script>
+
+<script>
+    layui.use(['upload','jquery'], function(){
+        var $ = layui.$,
+            upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: '/upload/'
+            ,before: function(obj){//文件上传前的回调
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#imageurl').attr('src', result); //图片链接（base64）直接将图片地址赋值给img的src属性
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+
+        function getAssetstype(){
+            $('#assetstype').empty();
+            $('#assetstype').append("<option value=''>选择资产类型</option>");
+            //查询资产父类型
+            $.get(Common.ctxPath + '/category/mediacategory/listByCode.json?categoryCode=' +'00040002',
+                function(result){
+                    for (var i in result){
+                        var optAss="<option value='"+result[i].id+"'>"+result[i].value+"</option>";
+                        $('#assetstype').append(optAss);
+                    }
+                    form.on('select(assetsfilter)',function(date){
+                        getSubtype(date.value);
+                    })
+                    form.render('select');
+                })
+        }
+        function getSubtype(assetstype){
+            $('#subtype').empty();
+            $('#subtype').append("<option value=''>选择资产子类型</option>");
+            //查询资产子类型
+            $.post(Common.ctxPath + '/category/mediacategory/listByCode.json?categoryCode=',{categoryCode:assetstype},
+                function(data){
+                    for(var k in data){
+                        var optSub="<option value='"+data[k].id+"'>"+data[k].value+"</option>";
+                        $("#subtype").append(optSub);
+                    }
+                    form.on('select(assetsfilter)',function(date){
+                        //这里继续下一级联动
+                        //getSubtype(date.value);
+                    })
+                    form.render('select');
+                })
+
+        }
+
+
+
+    });
 </script>

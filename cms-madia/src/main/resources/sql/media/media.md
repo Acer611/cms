@@ -49,4 +49,10 @@ batchOfflineMediainfoByIds
 * 批量下线
 
     update MediaInfo set MediaState = 2, UpdateDate=#updateDate# where MediaGuid  in( #join(ids)# )
-    
+ 
+ 
+update
+===
+  * 根据ID修改专辑信息
+  
+      update MediaInfo set Note = #note#,  ImageUrl=#imageurl#,  UpdateDate=#updatedate# where MediaGuid =#mediaguid#

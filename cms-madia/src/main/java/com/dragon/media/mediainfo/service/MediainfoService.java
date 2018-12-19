@@ -64,4 +64,21 @@ public class MediainfoService extends BaseService<Mediainfo>{
             throw new PlatformException("批量下线Mediainfo失败", e);
         }
     }
+
+    /**
+     * 根据Guid修改专辑信息
+     * @param mediainfo
+     * @return
+     */
+    public boolean update(Mediainfo mediainfo){
+
+        try {
+            Date updateDate = new Date();
+            mediainfo.setUpdatedate(updateDate);
+            mediaDao.update(mediainfo);
+        } catch (Exception e) {
+            throw new PlatformException("更新Mediainfo失败", e);
+        }
+        return true;
+    }
 }

@@ -133,6 +133,8 @@ public class MediafileinfoController{
         return  JsonResult.success(resource);
     }
 
+
+
     @PostMapping(MODEL + "/delete.json")
     @Function("media.resource.delete")
     @ResponseBody
@@ -144,6 +146,9 @@ public class MediafileinfoController{
         resourceService.batchDelMediafileinfo(idList);
         return new JsonResult().success();
     }
-    
+
+
+
+
 
 }

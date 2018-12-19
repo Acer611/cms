@@ -1,0 +1,44 @@
+<!--# layout("/common/layout.html",{"jsBase":"/js/categorydetail/categorydetail/"}){ -->
+
+<form class="layui-form layui-form-pane" id="addForm">
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">专辑的唯一标识</label>
+				<div class="layui-input-inline">
+					<input type="text" name="mediaguid" class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">分类的code</label>
+				<div class="layui-input-inline">
+					<input type="text" name="categorycode" class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">创建时间</label>
+				<div class="layui-input-inline">
+					<input type="text" name="createdate" class="layui-input input-date" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">修改时间</label>
+				<div class="layui-input-inline">
+					<input type="text" name="updatedate" class="layui-input input-date" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <layui:submitButtons id="addButton" />
+</form>
+<!--#} -->
+<script>
+layui.use(['add'], function(){
+    var categorydetailAdd = layui.add
+    categorydetailAdd.init();
+});
+</script>

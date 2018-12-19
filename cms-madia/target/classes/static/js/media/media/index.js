@@ -39,10 +39,9 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         field : 'imageurl',
                         title : '封面图',
                         width: 150,
+                        height: '100%',
                         fixed: 'left',
-                        templet: function(res){
-                            return  '<div><image class="layui-table-link">'+ res.imageurl +'</image></div>'
-                        }
+                        templet:'<div><img src="{{ d.imageurl}}"></div>'
                     },
                     {
                         field : 'filecount',
@@ -115,7 +114,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         width: 100,
                     },
 
-                    {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+                    {fixed: 'right',title : '操作', width: 165, align:'center', toolbar: '#barDemo'}
 
         ] ]
 
