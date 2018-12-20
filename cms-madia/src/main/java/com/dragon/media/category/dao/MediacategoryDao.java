@@ -13,7 +13,9 @@ import  com.dragon.media.category.entity.*;
  */
 @SqlResource("category.mediacategory")
 public interface MediacategoryDao extends BaseMapper<Mediacategory>{
+
     public PageQuery<Mediacategory> queryByCondition(PageQuery query);
+
     public void batchDelMediacategoryByIds( List<Long> ids);
 
     //查询一级分类

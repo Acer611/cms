@@ -144,6 +144,8 @@ public class MediacategorydetailController{
         categorydetailService.batchDelMediacategorydetail(idList);
         return new JsonResult().success();
     }
+
+
     
 
 }

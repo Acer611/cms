@@ -157,6 +157,12 @@ public class MediacategoryController{
     }
 
 
+    /**
+     * 查询当前分类code下的子分类
+     * @param condtion
+     * @param categoryCode
+     * @return
+     */
     @PostMapping(MODEL + "/listByCode.json")
     @Function("category.mediacategory.query")
     @ResponseBody
@@ -167,4 +173,41 @@ public class MediacategoryController{
         mediacategoryService.queryByCondition(page);
         return JsonResult.success(page);
     }
+
+
+    /**
+     * 给专辑添加分类
+     * @param mediaGuid 专辑ID
+     * @param  categoryList 分类ID集合
+     * @return
+     */
+    @PostMapping(MODEL + "/addCategory.json")
+    @Function("category.mediacategory.add")
+    @ResponseBody
+    public JsonResult addCategorys(@RequestParam(name = "mediaGuid") String mediaGuid,
+                                   @RequestParam(name = "categoryList") List<String> categoryList) {
+
+        mediacategoryService.addCategorys(mediaGuid,categoryList);
+        return new JsonResult().success();
+    }
+
+    /**
+     * 给专辑添加分类（先删除现有的的分类，然后添加新的分类）
+     * @param mediaGuid 专辑ID
+     * @param  categoryList 分类ID集合
+     * @return
+     */
+    @PostMapping(MODEL + "/addMediaCategorys.json")
+    @Function("category.mediacategory.add")
+    @ResponseBody
+    public JsonResult addMediaCategorys(@RequestParam(name = "mediaGuid") String mediaGuid,
+                                   @RequestParam(name = "categoryList") List<String> categoryList) {
+
+        //删除
+        mediacategoryService.deleteCategoryDetail(mediaGuid);
+        //添加
+        mediacategoryService.addCategorys(mediaGuid,categoryList);
+        return new JsonResult().success();
+    }
+
 }

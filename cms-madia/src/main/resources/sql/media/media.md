@@ -55,4 +55,35 @@ update
 ===
   * 根据ID修改专辑信息
   
-      update MediaInfo set Note = #note#,  ImageUrl=#imageurl#,  UpdateDate=#updatedate# where MediaGuid =#mediaguid#
+      update MediaInfo set Note = #note#,  ImageUrl=#imageurl#, Tags=#tags#,UpdateDate=#updatedate# where MediaGuid =#mediaguid#
+      
+      
+queryMediaById  
+===         
+   * 查询专辑和分类信息  
+     
+      SELECT
+      	m.*,
+      	mcd.CategoryCode ,
+      	mc.CategoryName as categoryName
+      FROM
+      	MediaInfo AS m
+      	LEFT JOIN MediaCategoryDetail AS mcd ON m.MediaGuid = mcd.MediaGuid 
+      	LEFT JOIN MediaCategory AS mc  on mcd.CategoryCode=mc.CategoryCode
+      WHERE
+      	m.MediaGuid = #mediaguid#
+      	
+      	
+queryAuthorById
+===
+   * 查询专辑和演播者信息  
+   
+       SELECT
+        m.*,
+        a.name as author
+       FROM
+        MediaInfo AS m
+        LEFT JOIN AuthorMedia AS am ON m.MediaGuid = am.MediaGuid
+        LEFT JOIN AuthorInfo AS a ON am.AuthorGuid = a.AuthorGuid
+       WHERE
+        m.MediaGuid = #mediaguid#	

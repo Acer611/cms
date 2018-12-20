@@ -78,6 +78,7 @@ public class MediainfoController{
     public ModelAndView edit(String mediaguid) {
         ModelAndView view = new ModelAndView("/media/media/edit.html");
         Mediainfo media = mediaService.queryById(mediaguid);
+        Mediainfo media1 = mediaService.queryMediaById(mediaguid);
         view.addObject("media", media);
         return view;
     }
@@ -154,6 +155,7 @@ public class MediainfoController{
         }
         List<String> idList = ConvertUtil.converList(ids);
         mediaService.batchOnlineMediainfo(idList);
+        //TODO  对专辑下资源的上线操作
         return new JsonResult().success();
     }
 
@@ -166,6 +168,7 @@ public class MediainfoController{
         }
         List<String> idList = ConvertUtil.converList(ids);
         mediaService.batchOfflineMediainfo(idList);
+        //TODO  对专辑下资源的下线操作
         return new JsonResult().success();
     }
     

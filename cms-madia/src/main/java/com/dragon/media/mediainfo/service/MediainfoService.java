@@ -1,5 +1,6 @@
 package com.dragon.media.mediainfo.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,32 @@ public class MediainfoService extends BaseService<Mediainfo>{
 
     public PageQuery<Mediainfo>queryByCondition(PageQuery query){
         PageQuery ret =  mediaDao.queryByCondition(query);
+
+        List<Mediainfo> mediainfos = ret.getList();
+        for (Mediainfo mediainfo:mediainfos
+             ) {
+            //TODO 查询分类信息
+            List<String> categoryNameList = new ArrayList<>();
+            String categoryName = "";
+            List<Mediainfo> mediainfoList = mediaDao.queryMediaById(mediainfo.getMediaguid());
+            for (Mediainfo tempmediainfo:mediainfoList
+                 ) {
+                categoryNameList.add(tempmediainfo.getCategoryName());
+                categoryName = categoryName + tempmediainfo.getCategoryName()+",";
+            }
+            categoryName = categoryName.substring(0,categoryName.length()-1);
+            mediainfo.setCategoryNameList(categoryNameList);
+            mediainfo.setCategoryName(categoryName);
+            //TODO 查询演播者信息
+            String author = "";
+            List<Mediainfo> mediaAuthorinfoList = mediaDao.queryAuthorById(mediainfo.getMediaguid());
+            for (Mediainfo tempmediainfo:mediaAuthorinfoList
+                 ) {
+                author = author + tempmediainfo.getAuthor()+",";
+            }
+            author = author.substring(0,author.length()-1);
+            mediainfo.setAuthor(author);
+        }
         queryListAfter(ret.getList());
         return ret;
     }
@@ -80,5 +107,17 @@ public class MediainfoService extends BaseService<Mediainfo>{
             throw new PlatformException("更新Mediainfo失败", e);
         }
         return true;
+    }
+
+    /**
+     * 根据Guid查询专辑信息
+     * @param mediaguid
+     * @return
+     */
+    public Mediainfo queryMediaById(String mediaguid) {
+        List<Mediainfo> mediainfoList = mediaDao.queryMediaById(mediaguid);
+
+        System.out.println(".......");
+        return null;
     }
 }

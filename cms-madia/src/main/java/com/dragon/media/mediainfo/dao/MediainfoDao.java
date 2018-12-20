@@ -26,4 +26,18 @@ public interface MediainfoDao extends BaseMapper<Mediainfo>{
 
     //更新
     void update(Mediainfo mediainfo);
+
+    /**
+     * 根据ID查询专辑信息
+     * @param mediaguid
+     * @return
+     */
+    List<Mediainfo> queryMediaById(String mediaguid);
+
+    /**
+     * 根据ID查询演播者信息
+     * @param mediaguid
+     * @return
+     */
+    List<Mediainfo> queryAuthorById(String mediaguid);
 }

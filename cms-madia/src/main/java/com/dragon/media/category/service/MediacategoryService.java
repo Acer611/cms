@@ -1,7 +1,10 @@
 package com.dragon.media.category.service;
 
+import java.util.Date;
 import java.util.List;
 
+import com.dragon.media.categorydetail.dao.MediacategorydetailDao;
+import com.dragon.media.categorydetail.entity.Mediacategorydetail;
 import org.beetl.sql.core.engine.PageQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +25,11 @@ import com.ibeetl.admin.core.service.BaseService;
 public class MediacategoryService extends BaseService<Mediacategory>{
 
     @Autowired private MediacategoryDao mediacategoryDao;
+    @Autowired private MediacategorydetailDao mediacategorydetailDao;
 
     public PageQuery<Mediacategory>queryByCondition(PageQuery query){
         PageQuery ret =  mediacategoryDao.queryByCondition(query);
+
         queryListAfter(ret.getList());
         return ret;
     }
@@ -47,14 +52,33 @@ public class MediacategoryService extends BaseService<Mediacategory>{
         return ret;
     }
 
+
+
     /**
-     * 根据父cod查找分类信息
-     * @param page
-     * @param categoryCode
+     * 单一专辑添加分类
+     * @param mediaGuid
+     * @param categoryList
      */
-    public PageQuery<Mediacategory> queryByPcode(PageQuery page, String categoryCode) {
-      //  PageQuery ret =  mediacategoryDao.queryByCondition(query);
-      //  queryListAfter(ret.getList());
-        return null;
+    public void addCategorys(String mediaGuid, List<String> categoryList) {
+        for (String categoryCode:categoryList
+             ) {
+            Mediacategorydetail mediacategorydetail = new Mediacategorydetail();
+            mediacategorydetail.setCategorycode(categoryCode);
+            mediacategorydetail.setMediaguid(mediaGuid);
+            mediacategorydetail.setCreatedate(new Date());
+            mediacategorydetail.setUpdatedate(new Date());
+
+            mediacategorydetailDao.save(mediacategorydetail);
+
+        }
+    }
+
+
+    /**
+     * 删除某一专辑下的分类信息
+     * @param mediaGuid
+     */
+    public void deleteCategoryDetail(String mediaGuid) {
+        mediacategorydetailDao.deleteCategoryDetailByMediaGuid(mediaGuid);
     }
 }

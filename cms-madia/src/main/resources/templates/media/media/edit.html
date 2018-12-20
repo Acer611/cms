@@ -30,28 +30,35 @@
 
 
     <div class="layui-row">
-        <div style="margin: 50px auto; ">
-            <form class="layui-form">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">添加分类</label>
-                    <div class="layui-input-inline">
-                        <select  id = "assetstype" name="assetstype" lay-filter="assetstype">
-                            <option value="">一级分类</option>
-                        </select>
-                    </div>
-                    <div class="layui-input-inline" style="display: none;">
-                        <select id = "subtype" name="subtype" lay-filter="subtype">
-                            <option value="">二级分类</option>
-                        </select>
-                    </div>
+        <label class="layui-form-label">添加分类</label>
+            <div class="layui-input-inline">
+                <select name="courseTemplate.levelId" class="state">
+                    <option value="">请选教育程度</option>
+                </select>
+            </div>
 
-                </div>
-            </form>
-        </div>
+            <div class="layui-input-inline">
+                <select name="courseTemplate.gradeId" class="state">
+                    <option value="">请选授课年级</option>
+                </select>
+            </div>
+
+            <div class="layui-input-inline">
+                <select name="courseTemplate.subjectId" class="state">
+                    <option value="">请选授课科目</option>
+                </select>
+            </div>
 
     </div>
 
+    <div class="layui-row">
+        <label class="layui-form-label">专辑标签</label>
+        <div class="layui-input-block">
+            <input type="text" id="tags" name="tags"
+                    class="layui-input" value="${media.tags}">
+        </div>
 
+    </div>
 
     <div class="layui-row">
             <div>
@@ -132,44 +139,62 @@ layui.use(['edit'], function(){
             }
         });
 
+    });
+</script>
+<script>
+    layui.use(['layer', 'jquery', 'form'], function () {
+        var layer = layui.layer,
+            $ = layui.jquery,
+            form = layui.form;
+        var url =  Common.ctxPath + '/category/mediacategory/listByCode.json'; //数据请求地址
+        var level = "";
+        var grade = "";
+        var subject = "";
+        getJSON(url + "?categoryCode=00040002", $("select[name='courseTemplate.levelId']").closest("div")); //初始化第一个元素
+        var type;
+        form.on('select(state)', function (data) { //进行监听 看元素是否变化，获取下一个下拉框数据
+            $that = $(data.elem);
+            type = data.elem.name;
+            var urls = "";
+            if (type == "courseTemplate.levelId") {
+                urls = url + "?treeType=2&levelId=" + data.value;
+            } else if (type == "courseTemplate.gradeId") {
+                var levelId = $("select[name='courseTemplate.levelId']").val();
+                urls = url + "?treeType=3&levelId=" + levelId + "&gradeId=" + data.value;
+            }
+            getJSON(urls, $that.closest("div").next());
+        });
 
-
-        function getAssetstype(){
-            $('#assetstype').empty();
-            $('#assetstype').append("<option value=''>选择资产类型</option>");
-            //查询资产父类型
-            $.get(Common.ctxPath + '/category/mediacategory/listByCode.json?categoryCode=' +'00040002',
-                function(result){
-                    for (var i in result){
-                        var optAss="<option value='"+result[i].id+"'>"+result[i].value+"</option>";
-                        $('#assetstype').append(optAss);
+        function getJSON(urls, even) {
+            $.getJSON(urls, function (json) {
+                var pid = 0;
+                var name = even.find("select").attr("name");
+                var select = "<select name=\"" + name + "\" lay-filter=\"state\">";
+                select += "<option value=\"0\">请选择 </option>";
+                $(json).each(function () {
+                    select += "<option value=\"" + this.id + "\"";
+                    if (level == this.nameCn || grade == this.nameCn || subject == this.nameCn) {
+                        select += " selected=\"selected\" ";
+                        pid = this.id;
                     }
-                    form.on('select(assetsfilter)',function(date){
-                        getSubtype(date.value);
-                    })
-                    form.render('select');
-                })
-        }
-        function getSubtype(assetstype){
-            $('#subtype').empty();
-            $('#subtype').append("<option value=''>选择资产子类型</option>");
-            //查询资产子类型
-            $.post(Common.ctxPath + '/category/mediacategory/listByCode.json?categoryCode=',{categoryCode:assetstype},
-                function(data){
-                    for(var k in data){
-                        var optSub="<option value='"+data[k].id+"'>"+data[k].value+"</option>";
-                        $("#subtype").append(optSub);
+                    select += ">" + this.nameCn + "</option>";
+                });
+                select += "</select>";
+                even.html(select);
+                var nextName = even.next().find("select").attr("name");
+                even.next().html("<select name=\"" + nextName + "\" lay-filter=\"state\"><option value=\"0\">请选择 </option></select>");
+                form.render('select');
+                if (pid != 0) {
+                    var urls = "";
+                    if (name == "courseTemplate.levelId") {
+                        urls = url + "?treeType=2&levelId=" + pid;
+                    } else if (name == "courseTemplate.gradeId") {
+                        var levelId = $("select[name='courseTemplate.levelId']").val();
+                        urls = url + "?treeType=3&levelId=" + levelId + "&gradeId=" + pid;
                     }
-                    form.on('select(assetsfilter)',function(date){
-                        //这里继续下一级联动
-                        //getSubtype(date.value);
-                    })
-                    form.render('select');
-                })
-
+                    getJSON(urls, even.next());
+                }
+            });
         }
-
-
-
     });
 </script>

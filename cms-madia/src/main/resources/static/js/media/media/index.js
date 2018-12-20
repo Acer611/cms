@@ -39,7 +39,6 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         field : 'imageurl',
                         title : '封面图',
                         width: 150,
-                        height: '100%',
                         fixed: 'left',
                         templet:'<div><img src="{{ d.imageurl}}"></div>'
                     },
@@ -50,20 +49,43 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                     },
 
                     {
-                        field : 'filecount',
+                        field : 'categoryName',
                         title : '分类',
-                        width: 60
+                        width: 180,
+                        templet:function(d){
+                            return d.categoryName==null?"":d.categoryName;
+                        },
+
+                    },
+                    {
+                        field : 'author',
+                        title : '演播者',
+                        width: 180,
+                        templet:function(d){
+                            return d.author==null?"":d.author;
+                        },
+
                     },
                     {
                         field : 'mediatype',
                         title : '资源类型',
                         width: 100,
+                        templet:function(d){
+                            switch (d.mediatype) {
+                                case 1 : d.mediatype = "音频" ; break;
+                                case 2 : d.mediatype= "视频" ; break;
+                                default: d.mediatype = "课件" ;break;
+                            }
+                            return d.mediatype;
+                        },
+
                     },
                     {
-                        field : 'mediatype',
-                        title : '演播者',
-                        width: 100,
+                        field : 'tags',
+                        title : '标签',
+                        width: 180,
                     },
+
                     {
                         field : 'price',
                         title : '定价',
@@ -89,6 +111,14 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         field : 'authstate',
                         title : '授权状态',
                         width: 100,
+                        templet:function(d){
+                            switch (d.authstate) {
+                                case 1 : d.authstate = "已授权" ; break;
+                                case 2 : d.authstate= "授权到期" ; break;
+                                default: d.authstate = "" ;break;
+                            }
+                            return d.authstate;
+                        },
                     },
                     {
                         field : 'createdate',
@@ -108,10 +138,20 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         width: 180,
                         sort: true,
                     },
+
                     {
                         field : 'mediastate',
                         title : '专辑状态',
                         width: 100,
+                        templet:function(d){
+                            switch (d.mediastate) {
+                                case 1 : d.mediastate = "已上线" ; break;
+                                case 2 : d.mediastate= "已下线" ; break;
+                                default: d.mediastate = "回收站" ;break;
+                            }
+                            return d.mediastate;
+                        },
+
                     },
 
                     {fixed: 'right',title : '操作', width: 165, align:'center', toolbar: '#barDemo'}
@@ -201,6 +241,9 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                     dataReload();
                 }
             });
+
+
+
 
         }
     }

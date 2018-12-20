@@ -16,6 +16,9 @@ public class MediacategoryQuery extends PageParam {
     private String categorycode;
     @Query(name = "分类名称", display = true)
     private String categoryname;
+    @Query(name = "父分类的code", display = false)
+    private String parentcategorycode;
+
     public Integer getId(){
         return  id;
     }
@@ -34,5 +37,12 @@ public class MediacategoryQuery extends PageParam {
     public void setCategoryname(String categoryname ){
         this.categoryname = categoryname;
     }
- 
+
+    public String getParentcategorycode() {
+        return parentcategorycode;
+    }
+
+    public void setParentcategorycode(String parentcategorycode) {
+        this.parentcategorycode = parentcategorycode;
+    }
 }

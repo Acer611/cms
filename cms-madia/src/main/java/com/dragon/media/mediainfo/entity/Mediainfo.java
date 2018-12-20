@@ -13,6 +13,7 @@ import com.ibeetl.admin.core.util.ValidateConfig;
 
 import org.beetl.sql.core.TailBean;
 import java.math.*;
+import java.util.List;
 
 import com.ibeetl.admin.core.annotation.Dict;
 import com.ibeetl.admin.core.entity.BaseEntity;
@@ -101,9 +102,32 @@ public class Mediainfo extends BaseEntity{
     private Double price;
     //上线时间
     private Date onlineTime;
+    //标签
+    private String tags;
     //是否删除
     private Integer delFlag;
+    //资源状态  更新状态
+    private Integer ResourceState;
+    //副标题
+    private  String Title;
+    //音频总数量
+    private Integer TotalCount;
+    //更新频率
+    private String Alternation;
 
+
+    //-----------以下为display字段
+    //分类code
+    private List<String> categoryCodeList;
+    //分类名称
+    private List<String> categoryNameList;
+    //分类名称
+    private String categoryName;
+
+    //演播者名称
+    private String author;
+    //演播者名称合集
+    private List<String> authorList;
     public Mediainfo()
     {
     }
@@ -284,5 +308,85 @@ public class Mediainfo extends BaseEntity{
 
     public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public List<String> getCategoryCodeList() {
+        return categoryCodeList;
+    }
+
+    public void setCategoryCodeList(List<String> categoryCodeList) {
+        this.categoryCodeList = categoryCodeList;
+    }
+
+    public List<String> getCategoryNameList() {
+        return categoryNameList;
+    }
+
+    public void setCategoryNameList(List<String> categoryNameList) {
+        this.categoryNameList = categoryNameList;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public Integer getResourceState() {
+        return ResourceState;
+    }
+
+    public void setResourceState(Integer resourceState) {
+        ResourceState = resourceState;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
+
+    public Integer getTotalCount() {
+        return TotalCount;
+    }
+
+    public void setTotalCount(Integer totalCount) {
+        TotalCount = totalCount;
+    }
+
+    public String getAlternation() {
+        return Alternation;
+    }
+
+    public void setAlternation(String alternation) {
+        Alternation = alternation;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public List<String> getAuthorList() {
+        return authorList;
+    }
+
+    public void setAuthorList(List<String> authorList) {
+        this.authorList = authorList;
     }
 }
