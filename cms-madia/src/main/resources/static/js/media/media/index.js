@@ -206,7 +206,15 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         var batchOfflineView = layui.batchOffline
                         batchOfflineView.batchOffline();
                     });
-                }
+                },
+                queryMedia : function() { // 获取选中数目
+                    var data = Common.getOneFromTable(table,"mediaTable");
+                    if(data==null){
+                        return ;
+                    }
+                    var url = "/media/resource/indexByMediaId.do?mediaId="+data.mediaguid;
+                    Common.openDlg(url,"resource管理>"+data.mediainfoid+">列表");
+                },
         };
             $('.ext-toolbar').on('click', function() {
                 var type = $(this).data('type');

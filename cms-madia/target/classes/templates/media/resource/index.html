@@ -1,20 +1,24 @@
 <!--#layout("/common/layout.html",{"jsBase":"/js/media/resource/"}){ -->
 <layui:searchForm formId="searchForm"  condition="${search}">
+    <input type="hidden" name="mediaguid" value="${mediaguid}">
 </layui:searchForm>
 
 <div class="layui-btn-group">
+
     <layui:accessButton function="resource.add"  action="add">增加</layui:accessButton>
     <layui:accessButton function="resource.edit"  action="edit">编辑</layui:accessButton>
-    <layui:accessButton function="resource.del"  action="del">删除</layui:accessButton>
+    <layui:accessButton function="resource.del"  action="del">删除 </layui:accessButton>
 </div>
 
 <table id="resourceTable" lay-filter="resourceTable"></table>
 <!--#} -->
 <script>
-
+    var mediaguid = '${mediaguid}';
 layui.use(['index'], function(){
-    var index = layui.index
+    var index = layui.index;
     index.init();
+
+
 });
 
 </script>

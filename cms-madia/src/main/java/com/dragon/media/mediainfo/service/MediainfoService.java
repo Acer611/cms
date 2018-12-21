@@ -118,6 +118,6 @@ public class MediainfoService extends BaseService<Mediainfo>{
         List<Mediainfo> mediainfoList = mediaDao.queryMediaById(mediaguid);
 
         System.out.println(".......");
-        return null;
+        return mediainfoList.get(0);
     }
 }

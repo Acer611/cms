@@ -14,6 +14,8 @@ public class MediafileinfoQuery extends PageParam {
     private String filetitle;
     @Query(name = "filefullname", display = true)
     private String filefullname;
+    @Query(name = "mediaguid", display = false)
+    private String mediaguid;
     public String getFiletitle(){
         return  filetitle;
     }
@@ -26,5 +28,12 @@ public class MediafileinfoQuery extends PageParam {
     public void setFilefullname(String filefullname ){
         this.filefullname = filefullname;
     }
- 
+
+    public String getMediaguid() {
+        return mediaguid;
+    }
+
+    public void setMediaguid(String mediaguid) {
+        this.mediaguid = mediaguid;
+    }
 }

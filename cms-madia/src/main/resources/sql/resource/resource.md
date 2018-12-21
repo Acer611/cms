@@ -17,6 +17,10 @@ queryByCondition
     @if(!isEmpty(filefullname)){
         and  t.FileFullName =#filefullname#
     @}
+    @if(!isEmpty(mediaguid)){
+            and  t.MediaGuid =#mediaguid#
+    @}
+    
     
     
     

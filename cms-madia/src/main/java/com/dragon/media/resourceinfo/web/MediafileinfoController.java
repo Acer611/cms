@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.dragon.media.mediainfo.entity.Mediainfo;
+import com.dragon.media.mediainfo.service.MediainfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,6 +60,7 @@ public class MediafileinfoController{
 
 
     @Autowired private MediafileinfoService resourceService;
+    @Autowired private MediainfoService mediainfoService;
     
     @Autowired
     FileService fileService;
@@ -71,6 +74,19 @@ public class MediafileinfoController{
         view.addObject("search", MediafileinfoQuery.class.getName());
         return view;
     }
+
+    @GetMapping(MODEL + "/indexByMediaId.do")
+    @Function("media.resource.query")
+    @ResponseBody
+    public ModelAndView indexByMediaId(MediafileinfoQuery condtion,String mediaId) {
+        ModelAndView view = new ModelAndView("/media/resource/index.html") ;
+         Mediainfo mediainfo = mediainfoService.queryMediaById(mediaId);
+        view.addObject("mediaguid", mediaId);
+        view.addObject("mediainfo", mediainfo);
+        view.addObject("search", MediafileinfoQuery.class.getName());
+        return view;
+    }
+
 
     @GetMapping(MODEL + "/edit.do")
     @Function("media.resource.edit")
@@ -98,6 +114,16 @@ public class MediafileinfoController{
     public JsonResult<PageQuery> list(MediafileinfoQuery condtion)
     {
         PageQuery page = condtion.getPageQuery();
+        resourceService.queryByCondition(page);
+        return JsonResult.success(page);
+    }
+    @PostMapping(MODEL + "/resourceList.json")
+    @Function("media.resource.query")
+    @ResponseBody
+    public JsonResult<PageQuery> resourceList(MediafileinfoQuery condtion,@RequestParam(name = "mediaguid") String mediaguid)
+    {
+        PageQuery page = condtion.getPageQuery();
+        page.setPara("mediaguid",mediaguid);
         resourceService.queryByCondition(page);
         return JsonResult.success(page);
     }

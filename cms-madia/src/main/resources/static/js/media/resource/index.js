@@ -18,7 +18,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                 height : Lib.getTableHeight(1),
                 cellMinWidth: 100,
                 method : 'post',
-                url : Common.ctxPath + '/media/resource/list.json' // 数据接口
+                url : Common.ctxPath + '/media/resource/resourceList.json?mediaguid='+ mediaguid // 数据接口
                 ,page : Lib.tablePage // 开启分页
                 ,limit : 10,
                 cols : [ [ // 表头
