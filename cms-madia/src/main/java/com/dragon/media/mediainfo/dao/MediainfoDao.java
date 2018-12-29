@@ -40,4 +40,11 @@ public interface MediainfoDao extends BaseMapper<Mediainfo>{
      * @return
      */
     List<Mediainfo> queryAuthorById(String mediaguid);
+
+    /**
+     * 到期且定更专辑信息
+     * @param idList
+     * @param updateDate
+     */
+    void expireMediainfo(List<String> idList, Date updateDate);
 }

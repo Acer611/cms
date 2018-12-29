@@ -38,9 +38,9 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                     {
                         field : 'imageurl',
                         title : '封面图',
-                        width: 150,
+                        width: 100,
                         fixed: 'left',
-                        templet:'<div><img src="{{ d.imageurl}}"></div>'
+                        templet:'<div><img style=" display: inline-block;width: 100%; height: 100%;" src="{{ d.imageurl}}"></div>'
                     },
                     {
                         field : 'filecount',
@@ -53,7 +53,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         title : '分类',
                         width: 180,
                         templet:function(d){
-                            return d.categoryName==null?"":d.categoryName;
+                            return d.categoryName =='null' ?'':d.categoryName;
                         },
 
                     },
@@ -62,7 +62,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         title : '演播者',
                         width: 180,
                         templet:function(d){
-                            return d.author==null?"":d.author;
+                            return d.author =='null' ? '':d.author;
                         },
 
                     },
@@ -118,7 +118,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                                 default: d.authstate = "" ;break;
                             }
                             return d.authstate;
-                        },
+                        }
                     },
                     {
                         field : 'createdate',
@@ -145,12 +145,14 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         width: 100,
                         templet:function(d){
                             switch (d.mediastate) {
+                                case 0 : d.mediastate = "未上线" ; break;
                                 case 1 : d.mediastate = "已上线" ; break;
                                 case 2 : d.mediastate= "已下线" ; break;
+                                case 4 : d.mediastate= "到期且停更" ; break;
                                 default: d.mediastate = "回收站" ;break;
                             }
                             return d.mediastate;
-                        },
+                        }
 
                     },
 
@@ -215,6 +217,54 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                     var url = "/media/resource/indexByMediaId.do?mediaId="+data.mediaguid;
                     Common.openDlg(url,"resource管理>"+data.mediainfoid+">列表");
                 },
+                addCategory : function(){
+                    var data = Common.getOneFromTable(table,"mediaTable");
+                    if(data==null){
+                        return ;
+                    }
+                    //页面层
+                    layer.open({
+                        type: 2,
+                        title: '挂载分类',
+                        shadeClose: true,
+                        shade: 0.5,
+                        skin:'demo-class',
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['1000px', '660px'],
+                        shift: 2,
+                        content: '/media/media/addCategory.do?mediaguid='+ data.mediaguid,
+                     /*   btn: ['保存分类', '取消'] //只是为了演示
+                        ,yes: function(){
+                            $(that).click();
+                        }
+                        ,btn2: function(){
+                            layer.closeAll();
+                        }*/
+                        success:function(layero,index){
+                        },
+                        end:function() {
+                            var handle_status = $("#handle_status").val();
+                            if (handle_status == '1') {
+                                layer.msg('添加成功！', {
+                                    icon: 1,
+                                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                                }, function () {
+                                    history.go(0);
+                                });
+                                //dataReload();
+                            } else if (handle_status == '2') {
+                                layer.msg('添加失败！', {
+                                    icon: 2,
+                                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                                }, function () {
+                                    history.go(0);
+                                });
+                               // dataReload();
+                            }
+                        }
+                    });
+
+            }
         };
             $('.ext-toolbar').on('click', function() {
                 var type = $(this).data('type');
@@ -224,7 +274,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
             });
 
             //监听行工具事件
-            table.on('tool(mediaTable)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            table.on('tool(mediaTable)', function(obj){ //注：tool 是工具条事件名，mediaTable 是 table 原始容器的属性 lay-filter="对应的值"
                 var data = obj.data //获得当前行数据
                     ,layEvent = obj.event; //获得 lay-event 对应的值
                 if(layEvent === 'online'){
@@ -255,6 +305,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
 
         }
     }
+
     exports('index',view);
 
 

@@ -1,5 +1,6 @@
 package com.dragon.media.resourceinfo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.beetl.sql.core.engine.PageQuery;
@@ -35,5 +36,96 @@ public class MediafileinfoService extends BaseService<Mediafileinfo>{
         } catch (Exception e) {
             throw new PlatformException("批量删除Mediafileinfo失败", e);
         }
+    }
+
+    /**
+     * 上线资源
+     * @param idList
+     */
+    public void batchOnlineMediainfo(List<String> idList) {
+        try {
+            Date updateDate = new Date();
+            resourceDao.batchOnlineMediainfoByIds(idList,updateDate,updateDate);
+        } catch (Exception e) {
+            throw new PlatformException("批量上线音频资源失败", e);
+        }
+    }
+
+    /**
+     * 下线资源
+     * @param idList
+     */
+    public void batchOfflineMediainfo(List<String> idList) {
+        try {
+            Date updateDate = new Date();
+            resourceDao.batchOfflineMediainfoByIds(idList,updateDate);
+        } catch (Exception e) {
+            throw new PlatformException("批量下线音频资源失败", e);
+        }
+    }
+
+    /**
+     * 批量添加标签
+     * @param idList
+     * @param tags
+     */
+    public void batchAddTags(List<String> idList, String tags) {
+        try {
+            Date updateDate = new Date();
+            resourceDao.batchAddTags(idList,tags,updateDate);
+        } catch (Exception e) {
+            throw new PlatformException("批量添加资源标签失败", e);
+        }
+    }
+
+    /**
+     * 根据MediaGuid上线资源
+     * @param idList
+     */
+    public void onlineMediaFileInfoByMediaGuid(List<String> idList) {
+        try {
+            Date updateDate = new Date();
+            resourceDao.onLineMediaFileInfoByMediaGuid(idList,updateDate);
+        } catch (Exception e) {
+            throw new PlatformException("批量上线音频资源失败", e);
+        }
+    }
+
+    /**
+     * 根据MediaGuid下线资源
+     * @param idList
+     */
+    public void offlineMediaFileInfoByMediaGuid(List<String> idList) {
+        try {
+            Date updateDate = new Date();
+            resourceDao.offLineMediaFileInfoByMediaGuid(idList,updateDate);
+        } catch (Exception e) {
+            throw new PlatformException("批量下线音频资源失败", e);
+        }
+    }
+
+    /**
+     * 根据MediaGuid到期且停更资源信息
+     * @param idList
+     */
+    public void expireMediaFileInfoByMediaGuid(List<String> idList) {
+        try {
+            Date updateDate = new Date();
+            resourceDao.expireMediaFileInfoByMediaGuid(idList,updateDate);
+        } catch (Exception e) {
+            throw new PlatformException("到期且停更资源信息音频资源失败", e);
+        }
+    }
+
+    /**
+     * 修改资源信息
+     * @param resource
+     * @return
+     */
+    public boolean updateResource(Mediafileinfo resource) {
+        resource.setUpdatedate(new Date());
+        resourceDao.updateResource(resource);
+        return true;
+
     }
 }

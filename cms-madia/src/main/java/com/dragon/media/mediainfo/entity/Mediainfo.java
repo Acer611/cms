@@ -55,8 +55,8 @@ public class Mediainfo extends BaseEntity{
 	
 
     private Integer authstate ;
-	
 
+    //专辑状态 0 未上线 1 已上线  2 已线下  3 回收站 4 到期停止更新
     private Integer mediastate ;
 	
 
@@ -109,11 +109,11 @@ public class Mediainfo extends BaseEntity{
     //资源状态  更新状态
     private Integer ResourceState;
     //副标题
-    private  String Title;
+    private  String title;
     //音频总数量
-    private Integer TotalCount;
+    private Integer totalCount;
     //更新频率
-    private String Alternation;
+    private String alternation;
 
 
     //-----------以下为display字段
@@ -124,8 +124,16 @@ public class Mediainfo extends BaseEntity{
     //分类名称
     private String categoryName;
 
+    //演播者类型  1 作者 2 演播者
+    private Integer authorType;
     //演播者名称
     private String author;
+    //演播者简介
+    private String authorNote;
+    //演播者名称
+    private String player;
+    //演播者简介
+    private String playerNote;
     //演播者名称合集
     private List<String> authorList;
     public Mediainfo()
@@ -343,27 +351,27 @@ public class Mediainfo extends BaseEntity{
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public Integer getTotalCount() {
-        return TotalCount;
+        return totalCount;
     }
 
     public void setTotalCount(Integer totalCount) {
-        TotalCount = totalCount;
+        this.totalCount = totalCount;
     }
 
     public String getAlternation() {
-        return Alternation;
+        return alternation;
     }
 
     public void setAlternation(String alternation) {
-        Alternation = alternation;
+        this.alternation = alternation;
     }
 
     public String getCategoryName() {
@@ -388,5 +396,37 @@ public class Mediainfo extends BaseEntity{
 
     public void setAuthorList(List<String> authorList) {
         this.authorList = authorList;
+    }
+
+    public String getAuthorNote() {
+        return authorNote;
+    }
+
+    public void setAuthorNote(String authorNote) {
+        this.authorNote = authorNote;
+    }
+
+    public String getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(String player) {
+        this.player = player;
+    }
+
+    public String getPlayerNote() {
+        return playerNote;
+    }
+
+    public void setPlayerNote(String playerNote) {
+        this.playerNote = playerNote;
+    }
+
+    public Integer getAuthorType() {
+        return authorType;
+    }
+
+    public void setAuthorType(Integer authorType) {
+        this.authorType = authorType;
     }
 }

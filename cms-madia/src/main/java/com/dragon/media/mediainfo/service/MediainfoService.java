@@ -31,9 +31,10 @@ public class MediainfoService extends BaseService<Mediainfo>{
         List<Mediainfo> mediainfos = ret.getList();
         for (Mediainfo mediainfo:mediainfos
              ) {
-            //TODO 查询分类信息
+            // 查询分类信息
             List<String> categoryNameList = new ArrayList<>();
             String categoryName = "";
+            System.out.println(mediainfo.getMediaguid());
             List<Mediainfo> mediainfoList = mediaDao.queryMediaById(mediainfo.getMediaguid());
             for (Mediainfo tempmediainfo:mediainfoList
                  ) {
@@ -43,7 +44,7 @@ public class MediainfoService extends BaseService<Mediainfo>{
             categoryName = categoryName.substring(0,categoryName.length()-1);
             mediainfo.setCategoryNameList(categoryNameList);
             mediainfo.setCategoryName(categoryName);
-            //TODO 查询演播者信息
+            // 查询演播者信息
             String author = "";
             List<Mediainfo> mediaAuthorinfoList = mediaDao.queryAuthorById(mediainfo.getMediaguid());
             for (Mediainfo tempmediainfo:mediaAuthorinfoList
@@ -117,7 +118,35 @@ public class MediainfoService extends BaseService<Mediainfo>{
     public Mediainfo queryMediaById(String mediaguid) {
         List<Mediainfo> mediainfoList = mediaDao.queryMediaById(mediaguid);
 
-        System.out.println(".......");
-        return mediainfoList.get(0);
+        Mediainfo mediainfo = mediainfoList.get(0);
+        /*String author = "";
+        String authorNote = "";*/
+        List<Mediainfo> mediaAuthorinfoList = mediaDao.queryAuthorById(mediainfo.getMediaguid());
+        for (Mediainfo tempmediainfo:mediaAuthorinfoList
+        ) {
+
+            if(null != tempmediainfo.getAuthorType()&&tempmediainfo.getAuthorType()==1){
+                mediainfo.setAuthor(tempmediainfo.getAuthor());
+                mediainfo.setAuthorNote(tempmediainfo.getAuthorNote());
+
+            }else  if (null!=tempmediainfo.getAuthorType()&&tempmediainfo.getAuthorType()==2){
+                mediainfo.setPlayer(tempmediainfo.getAuthor());
+                mediainfo.setPlayerNote(tempmediainfo.getAuthorNote());
+            }
+        }
+        return mediainfo;
+    }
+
+    /**
+     * 对专辑进行到期且定更状态修改
+     * @param idList
+     */
+    public void expireMediainfo(List<String> idList) {
+        try {
+            Date updateDate = new Date();
+            mediaDao.expireMediainfo(idList,updateDate);
+        } catch (Exception e) {
+            throw new PlatformException("到期且停更专辑信息状态失败", e);
+        }
     }
 }

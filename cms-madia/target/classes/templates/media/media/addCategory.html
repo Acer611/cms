@@ -1,0 +1,163 @@
+<!--# layout("/common/layout.html",{"jsBase":"/js/media/media/"}){ -->
+
+<div class="layui-container">
+
+    <div class="layui-row">
+        <div class="layui-col-md3">
+            <span>一级分类</span>
+            <div id="da" style="width: 220px;height:600px ; background: antiquewhite">
+                <div id='come' style="height: 20px; background: antiquewhite" > 展开一级分类</div>
+                <div id="shu"></div>
+
+            </div>
+
+        </div>
+        <div class="layui-col-md3">
+            <span>二级分类</span>
+            <div id="children" style="width: 220px;height:600px ; background: antiquewhite ">
+                <div id="children-list" style="height: 20px;background: antiquewhite">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-col-md3">
+            <span>已选中</span>
+            <div id="choosed" style="width: 220px;height:600px ;background: antiquewhite">
+                <div id="choose-list" style="height: 20px;background: antiquewhite">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="layui-input-block"  style ="float:right;">
+    <button id="save" class="layui-btn layui-btn-normal layui-btn-radius"   lay-submit lay-filter="*">
+        保存
+    </button>
+</div>
+
+<!--#} -->
+
+<script>
+    $(function () {
+        var hasChooseCategory = '${hasCategorys}';
+        hasCategory = $.parseJSON(hasChooseCategory);
+        $.each(hasCategory, function (i, t) {
+
+            var div4 = '<div id = "' + t.categorycode +'" >';
+            var div5 = '<span>' + t.categoryname + '</span> <button class="layui-btn layui-btn-primary layui-btn-sm"' +
+                'id = "' + t.categoryname + '" name="choosed"  value="' + t.categorycode + '"' +
+                ' onclick="remove(this.value,this.id)" ><i class="layui-icon"></i></button> </div>'
+            $("#choose-list").append(div4 + div5);
+        })
+
+
+        var data = new Array();
+        data = '${categoryList}';
+        data = $.parseJSON(data);
+        $("#come").one("click",function(){
+            $.each(data, function (i, t) {
+                var div1 = '<input type="checkbox" id = "' +t.categoryname+ '" name="category" class="yk" value="' + t.categorycode + '" onclick="checkitem(this.value,this.id)" style=" margin-top: 5px;">';
+                var div2 = '<br/>';
+                $("#shu").append(div1 + t.categoryname +div2);
+            })
+        });
+
+
+    });
+
+    function checkitem(code,name) {
+
+        $.ajax({
+            url:'/category/mediacategory/listByCode.json?categoryCode='+ code,
+            dataType:'JSON',
+            type:'post',
+            success:function(data){
+                if(data.code == 0){
+                    var node = document.getElementById("children-list");
+                    var childs = node.childNodes;
+
+                    for(var i = childs.length - 1; i >= 0; i--) {
+                        node.removeChild(childs[i]);
+                    }
+
+                    $.each(data.data, function (i, category) {
+                        var div1 = '<input type="checkbox"  id = "' +category.categoryname+ '" name="children-category" class="yk" value="' + category.categorycode + '" onclick="choose(this.value,this.id)" style=" margin-top: 5px;">';
+                        var div2 = '<br/>';
+                        $("#children-list").append(div1 + category.categoryname +div2);
+                    })
+                }else{
+                    alert('获取二级分类失败');
+                }
+            }
+        }).done().fail().always();
+
+        var div4 = '<div id = "' + code + '"  >';
+        var div5 = '<span>' + name + '</span> <button class="layui-btn layui-btn-primary layui-btn-sm"' +
+            'id = "' + name + '" name="choosed" value="' + code + '"' +
+            ' onclick="remove(this.value,this.id,)" > <i class="layui-icon"></i></button> </div>'
+        $("#choose-list").append(div4 + div5);
+
+    }
+
+
+    function choose(code,name) {
+
+        var div4 = '<div id = "' + code + '"  >';
+        var div5 = '<span>' + name + '</span> <button class="layui-btn layui-btn-primary layui-btn-sm"' +
+            'id = "' + name + '" name="choosed" value="' + code + '"' +
+            ' onclick="remove(this.value,this.id,)" > <i class="layui-icon"></i></button> </div>'
+        $("#choose-list").append(div4 + div5);
+
+    }
+
+
+    function sleep(n) {
+        var start = new Date().getTime();
+        while (true) {
+            if (new Date().getTime() - start > n) {
+                break;
+            }
+        }
+    }
+    //删除函数
+    function remove(code,name){
+        debugger;
+        var node = document.getElementById("choose-list");
+        var removeChildrenNode = document.getElementById(code);
+        node.removeChild(removeChildrenNode)
+    }
+
+    $("#save").click (function(){
+        var mediaguid = '${mediaguid}';
+        obj = document.getElementsByName("choosed");
+        check_code= [];
+        for(k in obj){
+            if(obj[k].value!=null){
+                console.log(obj[k].value)
+                   check_code.push(obj[k].value)
+            }
+        }
+
+        $.ajax({
+            url:'/category/mediacategory/addMediaCategorys.json?mediaGuid='+mediaguid+'&categoryList='+check_code,
+            dataType:'JSON',
+            type:'post',
+            success:function(data){
+
+                if(data.code == 0){
+                    parent.$("#handle_status").val('1');
+                    parent.layer.closeAll();
+                }else{
+                    parent.$("#handle_status").val('2');
+                    parent.layer.closeAll();
+                }
+            }
+        }).done().fail().always();
+
+    })
+
+</script>

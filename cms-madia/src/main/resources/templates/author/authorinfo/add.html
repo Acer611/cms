@@ -1,0 +1,60 @@
+<!--# layout("/common/layout.html",{"jsBase":"/js/author/authorinfo/"}){ -->
+
+<form class="layui-form layui-form-pane" id="addForm">
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">authorguid</label>
+				<div class="layui-input-inline">
+					<input type="text" name="authorguid" class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">name</label>
+				<div class="layui-input-inline">
+					<input type="text" name="name" class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">note</label>
+				<div class="layui-input-inline">
+					<input type="text" name="note" class="layui-input" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">headimage</label>
+				<div class="layui-input-inline">
+					<input type="text" name="headimage" class="layui-input" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+            <label class="layui-form-label">createdate</label>
+				<div class="layui-input-inline">
+					<input type="text" name="createdate" class="layui-input input-date" >
+				</div>
+            </div>
+            <div class="layui-inline">
+            <label class="layui-form-label">updatedate</label>
+				<div class="layui-input-inline">
+					<input type="text" name="updatedate" class="layui-input input-date" >
+				</div>
+            </div>
+        </div>
+    </div>
+    <layui:submitButtons id="addButton" />
+</form>
+<!--#} -->
+<script>
+layui.use(['add'], function(){
+    var authorinfoAdd = layui.add
+    authorinfoAdd.init();
+});
+</script>

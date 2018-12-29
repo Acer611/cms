@@ -20,4 +20,17 @@ public interface MediacategoryDao extends BaseMapper<Mediacategory>{
 
     //查询一级分类
     PageQuery queryCategory(PageQuery page);
+    /**
+     * 根据code 查询下级分类
+     * @param categoryCode
+     * @return
+     */
+    List<Mediacategory> queryCategoryByCode(String categoryCode);
+
+    /**
+     * 获取当前专辑下的分类信息
+     * @param mediaguid
+     * @return
+     */
+    List<Mediacategory> queryCategoryByMediaGuid(String mediaguid);
 }

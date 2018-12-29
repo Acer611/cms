@@ -123,7 +123,7 @@ public class MediafileinfoController{
     public JsonResult<PageQuery> resourceList(MediafileinfoQuery condtion,@RequestParam(name = "mediaguid") String mediaguid)
     {
         PageQuery page = condtion.getPageQuery();
-        page.setPara("mediaguid",mediaguid);
+       // page.setPara("mediaguid",mediaguid);
         resourceService.queryByCondition(page);
         return JsonResult.success(page);
     }
@@ -141,7 +141,7 @@ public class MediafileinfoController{
     @Function("media.resource.edit")
     @ResponseBody
     public JsonResult<String> update(@Validated(ValidateConfig.UPDATE.class)  Mediafileinfo resource) {
-        boolean success = resourceService.update(resource);
+        boolean success = resourceService.updateResource(resource);
         if (success) {
             return new JsonResult().success();
         } else {
@@ -173,8 +173,58 @@ public class MediafileinfoController{
         return new JsonResult().success();
     }
 
+    /**
+     * 上线
+     * @param ids
+     * @return
+     */
+    @PostMapping(MODEL + "/online.json")
+    @Function("media.resource.online")
+    @ResponseBody
+    public JsonResult online(String ids) {
+        if (ids.endsWith(",")) {
+            ids = StringUtils.substringBeforeLast(ids, ",");
+        }
+        List<String> idList = ConvertUtil.converList(ids);
+        resourceService.batchOnlineMediainfo(idList);
+        return new JsonResult().success();
+    }
 
+    /**
+     * 下线
+     * @param ids
+     * @return
+     */
+    @PostMapping(MODEL + "/offline.json")
+    @Function("media.resource.online")
+    @ResponseBody
+    public JsonResult offline(String ids) {
+        if (ids.endsWith(",")) {
+            ids = StringUtils.substringBeforeLast(ids, ",");
+        }
+        List<String> idList = ConvertUtil.converList(ids);
+        resourceService.batchOfflineMediainfo(idList);
+        return new JsonResult().success();
+    }
 
+    /**
+     * 批量添加标签
+     * @param ids
+     * @param tags
+     * @return
+     */
+
+    @PostMapping(MODEL + "/batchTags.json")
+    @Function("media.resource.online")
+    @ResponseBody
+    public JsonResult batchAddTags(String ids,String tags) {
+        if (ids.endsWith(",")) {
+            ids = StringUtils.substringBeforeLast(ids, ",");
+        }
+        List<String> idList = ConvertUtil.converList(ids);
+        resourceService.batchAddTags(idList,tags);
+        return new JsonResult().success();
+    }
 
 
 }

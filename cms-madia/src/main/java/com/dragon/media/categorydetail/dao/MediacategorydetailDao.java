@@ -2,6 +2,7 @@ package com.dragon.media.categorydetail.dao;
 
 import java.util.List;
 
+import com.dragon.media.category.entity.Mediacategory;
 import org.beetl.sql.core.annotatoin.SqlResource;
 import org.beetl.sql.core.mapper.BaseMapper;
 import org.beetl.sql.core.engine.PageQuery;
@@ -21,4 +22,6 @@ public interface MediacategorydetailDao extends BaseMapper<Mediacategorydetail>{
 
     //删除专辑和分类的关联关系
     void deleteCategoryDetailByMediaGuid(String mediaGuid);
+
+
 }

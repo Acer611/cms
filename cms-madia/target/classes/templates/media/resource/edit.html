@@ -3,30 +3,30 @@
 <form class="layui-form layui-form-pane" id="updateForm">
     <div class="layui-row">
         <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">mediaguid</label>
+          <!--  <div class="layui-inline">
+           <label class="layui-form-label">所属专辑ID</label>
 				<div class="layui-input-inline">
-					<input type="text" id="mediaguid" name="mediaguid"  value="${resource.mediaguid}"   class="layui-input" >
+					<input type="hidden" id="mediaguid" name="mediaguid"  value="${resource.mediaguid}"   class="layui-input" >
 				</div>
-            </div>
+            </div>-->
             <div class="layui-inline">
-            <label class="layui-form-label">filetitle</label>
+            <label class="layui-form-label">资源名称</label>
 				<div class="layui-input-inline">
 					<input type="text" id="filetitle" name="filetitle"  value="${resource.filetitle}"   class="layui-input" >
 				</div>
             </div>
         </div>
     </div>
-    <div class="layui-row">
+  <!--  <div class="layui-row">
         <div class="layui-form-item">
             <div class="layui-inline">
-            <label class="layui-form-label">filefullname</label>
+            <label class="layui-form-label">资源全称</label>
 				<div class="layui-input-inline">
 					<input type="text" id="filefullname" name="filefullname"  value="${resource.filefullname}"   class="layui-input" >
 				</div>
             </div>
             <div class="layui-inline">
-            <label class="layui-form-label">linkurl</label>
+            <label class="layui-form-label">资源地址</label>
 				<div class="layui-input-inline">
 					<input type="text" id="linkurl" name="linkurl"  value="${resource.linkurl}"   class="layui-input" >
 				</div>
@@ -36,31 +36,44 @@
     <div class="layui-row">
         <div class="layui-form-item">
             <div class="layui-inline">
-            <label class="layui-form-label">imageurl</label>
+            <label class="layui-form-label">封面图</label>
 				<div class="layui-input-inline">
 					<input type="text" id="imageurl" name="imageurl"  value="${resource.imageurl}"   class="layui-input" >
 				</div>
             </div>
             <div class="layui-inline">
-            <label class="layui-form-label">filesize</label>
+            <label class="layui-form-label">资源大小</label>
 				<div class="layui-input-inline">
 					<input type="text" id="filesize" name="filesize"  value="${resource.filesize}"   class="layui-input" >
 				</div>
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="layui-row">
         <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">duration</label>
+        <!--    <div class="layui-inline">
+            <label class="layui-form-label">时长</label>
 				<div class="layui-input-inline">
 					<input type="text" id="duration" name="duration"  value="${resource.duration}"   class="layui-input" >
 				</div>
-            </div>
+            </div>-->
             <div class="layui-inline">
-            <label class="layui-form-label">fileextension</label>
+                <label class="layui-form-label">标签</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="tags" name="tags"  value="${resource.tags}"   class="layui-input" >
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<!--    <div class="layui-row">
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+            <label class="layui-form-label">创建时间</label>
 				<div class="layui-input-inline">
-					<input type="text" id="fileextension" name="fileextension"  value="${resource.fileextension}"   class="layui-input" >
+					<input type="text" id="createdate" name="createdate"  value="${resource.createdate,'yyyy-MM-dd'}"   class="layui-input input-date" >
 				</div>
             </div>
         </div>
@@ -68,44 +81,14 @@
     <div class="layui-row">
         <div class="layui-form-item">
             <div class="layui-inline">
-            <label class="layui-form-label">localvalid</label>
+            <label class="layui-form-label">修改时间</label>
 				<div class="layui-input-inline">
-					<input type="text" id="localvalid" name="localvalid"  value="${resource.localvalid}"   class="layui-input" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">linkvalid</label>
-				<div class="layui-input-inline">
-					<input type="text" id="linkvalid" name="linkvalid"  value="${resource.linkvalid}"   class="layui-input" >
+					<input type="text" id="updatedate" name="updatedate"  value="${resource.updatedate,'yyyy-MM-dd'}"   class="layui-input input-date" >
 				</div>
             </div>
         </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">ordernumber</label>
-				<div class="layui-input-inline">
-					<input type="text" id="ordernumber" name="ordernumber"  value="${resource.ordernumber}"   class="layui-input" >
-				</div>
-            </div>
-            <div class="layui-inline">
-            <label class="layui-form-label">createdate</label>
-				<div class="layui-input-inline">
-					<input type="text" id="createdate" name="createdate"  value="${resource.createdate,"yyyy-MM-dd"}"   class="layui-input input-date" >
-				</div>
-            </div>
-        </div>
-    </div>
-    <div class="layui-row">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-            <label class="layui-form-label">updatedate</label>
-				<div class="layui-input-inline">
-					<input type="text" id="updatedate" name="updatedate"  value="${resource.updatedate,"yyyy-MM-dd"}"   class="layui-input input-date" >
-				</div>
-            </div>
-        </div>
+    </div>-->
+
     </div>
 	<!-- 业务对象须有hidden字段，保存delFlag和version字段-->
     <input type="hidden" name="mediafileinfoid" value=${resource.mediafileinfoid} />

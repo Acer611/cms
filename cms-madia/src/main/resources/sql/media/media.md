@@ -14,14 +14,14 @@ queryByCondition
     @if(!isEmpty(medianame)){
         and  t.MediaName LIKE #'%'+medianame+'%'#
     @}
-     @if(!isEmpty(mediaguid)){
-            and  t.MediaGuid LIKE #'%'+mediaguid+'%'#
-        @}
+    @if(!isEmpty(mediaguid)){
+        and  t.MediaGuid LIKE #'%'+mediaguid+'%'#
+    @}
     @if(!isEmpty(mediatype)){
         and  t.MediaType =#mediatype#
     @}
     @if(!isEmpty(mediastate)){
-            and  t.MediaState =#mediastate#
+        and  t.MediaState =#mediastate#
     @}
     
     
@@ -49,6 +49,13 @@ batchOfflineMediainfoByIds
 * 批量下线
 
     update MediaInfo set MediaState = 2, UpdateDate=#updateDate# where MediaGuid  in( #join(ids)# )
+    
+    
+expireMediainfo
+===
+* 到期且定更专辑信息
+
+    update MediaInfo set MediaState = 3, UpdateDate=#updateDate# where MediaGuid  in( #join(idList)# )
  
  
 update
@@ -57,6 +64,7 @@ update
   
       update MediaInfo set Note = #note#,  ImageUrl=#imageurl#, Tags=#tags#,UpdateDate=#updatedate# where MediaGuid =#mediaguid#
       
+   
       
 queryMediaById  
 ===         
@@ -73,6 +81,7 @@ queryMediaById
       WHERE
       	m.MediaGuid = #mediaguid#
       	
+ 
       	
 queryAuthorById
 ===
@@ -80,10 +89,14 @@ queryAuthorById
    
        SELECT
         m.*,
-        a.name as author
+        a.name as author,
+        a.Note as authorNote,
+        am.AuthorType as authorType 
        FROM
         MediaInfo AS m
         LEFT JOIN AuthorMedia AS am ON m.MediaGuid = am.MediaGuid
         LEFT JOIN AuthorInfo AS a ON am.AuthorGuid = a.AuthorGuid
        WHERE
         m.MediaGuid = #mediaguid#	
+        
+

@@ -29,75 +29,77 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                 {
 
                     field : 'mediafileinfoid', 
-                        title : 'mediafileinfoid',
+                    title : '资源ID',
                     fixed:'left',
-                        width : 60,
+                    width : 120,
                 },
-                {
 
-                    field : 'mediaguid', 
-                        title : 'mediaguid',
-                },
                 {
 
                     field : 'filetitle', 
-                        title : 'filetitle',
+                    title : '资源名称',
+                    width: 180,
                 },
-                {
 
-                    field : 'filefullname', 
-                        title : 'filefullname',
-                },
                 {
 
                     field : 'linkurl', 
-                        title : 'linkurl',
+                    title : '资源地址',
+                    width: 180,
                 },
-                {
 
-                    field : 'imageurl', 
-                        title : 'imageurl',
-                },
                 {
 
                     field : 'filesize', 
-                        title : 'filesize',
+                    title : '资源大小',
+                    width: 100,
+                },
+                {
+
+                    field : 'tags',
+                    title : '资源标签',
+                    width: 180,
                 },
                 {
 
                     field : 'duration', 
-                        title : 'duration',
+                    title : '资源时长',
+                    width: 100,
+                    sort: true,
                 },
-                {
+                 {
 
-                    field : 'fileextension', 
-                        title : 'fileextension',
-                },
-                {
+                     field : 'state',
+                     title : '资源状态',
+                     width: 100,
+                     templet:function(d){
+                         switch (d.state) {
+                             case 0 : d.state = "未上线" ; break;
+                             case 1 : d.state = "已上线" ; break;
+                             case 2 : d.state= "已下线" ; break;
+                             case 4 : d.state= "到期且停更" ; break;
+                             default: d.state = "回收站" ;break;
+                         }
+                         return d.state;
+                     }
 
-                    field : 'localvalid', 
-                        title : 'localvalid',
-                },
-                {
+                 },
 
-                    field : 'linkvalid', 
-                        title : 'linkvalid',
-                },
-                {
-
-                    field : 'ordernumber', 
-                        title : 'ordernumber',
-                },
                 {
 
                     field : 'createdate', 
-                        title : 'createdate',
+                    title : '资源添加时间',
+                    width: 180,
+                    sort: true,
                 },
                 {
 
                     field : 'updatedate', 
-                        title : 'updatedate',
-                }
+                    title : '资源修改时间',
+                    width: 180,
+                    sort: true,
+                },
+                    {fixed: 'right', title: '操作', width: 165, align: 'center', toolbar: '#barDemo'}
 
         ] ]
 
@@ -141,6 +143,35 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                 var type = $(this).data('type');
                 toolbar[type] ? toolbar[type].call(this) : '';
             });
+
+            //监听行工具事件
+            table.on('tool(resourceTable)', function(obj){ //注：tool 是工具条事件名，mediaTable 是 table 原始容器的属性 lay-filter="对应的值"
+                var data = obj.data //获得当前行数据
+                    ,layEvent = obj.event; //获得 lay-event 对应的值
+                if(layEvent === 'online'){
+                    var ids = new Array();
+                    ids[0] = data.mediafileinfoid;
+                    Common.post("/media/resource/online.json",{"ids":data.mediafileinfoid},function(){
+                        callback();
+                    })
+                    alert("上线成功")
+                    dataReload();
+
+                } else if(layEvent === 'edit'){
+                    var url = "/media/resource/edit.do?mediafileinfoid="+data.mediafileinfoid;
+                    Common.openDlg(url,"音频资源管理>"+data.mediafileinfoid+">编辑");
+                }else if(layEvent === 'offline'){
+                    var ids = new Array();
+                    ids[0] = data.mediafileinfoid;
+                    Common.post("/media/resource/offline.json",{"ids":data.mediafileinfoid},function(){
+                        callback();
+                    })
+                    alert("下线成功")
+                    dataReload();
+                }
+            });
+
+
         }
     }
     exports('index',view);

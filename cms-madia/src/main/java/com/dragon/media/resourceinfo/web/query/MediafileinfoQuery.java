@@ -10,10 +10,11 @@ import java.util.Date;
  *Mediafileinfo查询
  */
 public class MediafileinfoQuery extends PageParam {
-    @Query(name = "filetitle", display = true)
+    @Query(name = "资源名称", display = true)
     private String filetitle;
-    @Query(name = "filefullname", display = true)
-    private String filefullname;
+
+    @Query(name = "资源状态", type = Query.TYPE_DICT, dict="album.status",display = true)
+    private String state;
     @Query(name = "mediaguid", display = false)
     private String mediaguid;
     public String getFiletitle(){
@@ -22,12 +23,6 @@ public class MediafileinfoQuery extends PageParam {
     public void setFiletitle(String filetitle ){
         this.filetitle = filetitle;
     }
-    public String getFilefullname(){
-        return  filefullname;
-    }
-    public void setFilefullname(String filefullname ){
-        this.filefullname = filefullname;
-    }
 
     public String getMediaguid() {
         return mediaguid;
@@ -35,5 +30,13 @@ public class MediafileinfoQuery extends PageParam {
 
     public void setMediaguid(String mediaguid) {
         this.mediaguid = mediaguid;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

@@ -81,4 +81,24 @@ public class MediacategoryService extends BaseService<Mediacategory>{
     public void deleteCategoryDetail(String mediaGuid) {
         mediacategorydetailDao.deleteCategoryDetailByMediaGuid(mediaGuid);
     }
+
+    /**
+     * 根据code查询下级分类
+     * @param categoryCode
+     * @return
+     */
+    public List<Mediacategory> queryCategoryByCode(String categoryCode) {
+        List<Mediacategory> mediacategoryList = mediacategoryDao.queryCategoryByCode(categoryCode);
+        return mediacategoryList;
+    }
+
+    /**
+     * 查询当前专辑下的分类信息
+     * @param mediaguid
+     * @return
+     */
+    public List<Mediacategory> queryCategoryByMediaGuid(String mediaguid) {
+        List<Mediacategory> mediacategoryList = mediacategoryDao.queryCategoryByMediaGuid(mediaguid);
+        return mediacategoryList;
+    }
 }

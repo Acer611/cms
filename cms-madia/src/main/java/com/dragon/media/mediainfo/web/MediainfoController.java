@@ -12,10 +12,17 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.dragon.media.category.entity.Mediacategory;
+import com.dragon.media.category.service.MediacategoryService;
+import com.dragon.media.common.constant.MediaConstant;
+import com.dragon.media.resourceinfo.service.MediafileinfoService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.beetl.sql.core.engine.PageQuery;
+import org.json.JSONArray;
 import org.jxls.common.Context;
 import org.jxls.reader.ReaderBuilder;
 import org.jxls.reader.ReaderConfig;
@@ -58,6 +65,10 @@ public class MediainfoController{
 
 
     @Autowired private MediainfoService mediaService;
+
+    @Autowired private MediafileinfoService mediafileinfoService;
+
+    @Autowired private MediacategoryService mediacategoryService;
     
     @Autowired
     FileService fileService;
@@ -77,9 +88,29 @@ public class MediainfoController{
     @ResponseBody
     public ModelAndView edit(String mediaguid) {
         ModelAndView view = new ModelAndView("/media/media/edit.html");
-        Mediainfo media = mediaService.queryById(mediaguid);
-        Mediainfo media1 = mediaService.queryMediaById(mediaguid);
+        //Mediainfo media = mediaService.queryById(mediaguid);
+        // 获取演播者信息
+        Mediainfo media = mediaService.queryMediaById(mediaguid);
+        //TODO 获取分类信息
         view.addObject("media", media);
+        return view;
+    }
+    @GetMapping(MODEL + "/addCategory.do")
+    @Function("media.media.edit")
+    @ResponseBody
+    public ModelAndView addCategory(String mediaguid) throws Exception {
+        ModelAndView view = new ModelAndView("/media/media/addCategory.html");
+        //TODO 获取当前专辑已有的分类信息
+        List<Mediacategory> hasCategoryList = mediacategoryService.queryCategoryByMediaGuid(mediaguid);
+        List<Mediacategory>  mediacategorys = mediacategoryService.queryCategoryByCode(MediaConstant.CATEGORY_CODE);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String categorys = mapper.writeValueAsString(mediacategorys);
+        String hasCategorys = mapper.writeValueAsString(hasCategoryList);
+
+        view.addObject("hasCategorys",hasCategorys);
+        view.addObject("mediaguid", mediaguid);
+        view.addObject("categoryList", categorys);
         return view;
     }
 
@@ -146,6 +177,11 @@ public class MediainfoController{
         return new JsonResult().success();
     }
 
+    /**
+     * 专辑批量上线
+     * @param ids
+     * @return
+     */
     @PostMapping(MODEL + "/online.json")
     @Function("media.media.online")
     @ResponseBody
@@ -155,10 +191,16 @@ public class MediainfoController{
         }
         List<String> idList = ConvertUtil.converList(ids);
         mediaService.batchOnlineMediainfo(idList);
-        //TODO  对专辑下资源的上线操作
+        //  对专辑下资源的上线操作
+        mediafileinfoService.onlineMediaFileInfoByMediaGuid(idList);
         return new JsonResult().success();
     }
 
+    /**
+     * 专辑批量下线
+     * @param ids
+     * @return
+     */
     @PostMapping(MODEL + "/offline.json")
     @Function("media.media.online")
     @ResponseBody
@@ -168,9 +210,29 @@ public class MediainfoController{
         }
         List<String> idList = ConvertUtil.converList(ids);
         mediaService.batchOfflineMediainfo(idList);
-        //TODO  对专辑下资源的下线操作
+        //  对专辑下资源的下线操作
+        mediafileinfoService.offlineMediaFileInfoByMediaGuid(idList);
         return new JsonResult().success();
     }
-    
+
+    /**
+     * 到期且定更
+     * @param ids
+     * @return
+     */
+    @PostMapping(MODEL + "/expire.json")
+    @Function("media.media.online")
+    @ResponseBody
+    public JsonResult expire(String ids) {
+        if (ids.endsWith(",")) {
+            ids = StringUtils.substringBeforeLast(ids, ",");
+        }
+        List<String> idList = ConvertUtil.converList(ids);
+        mediaService.expireMediainfo(idList);
+        //  对专辑下资源的到期且停更操作
+        mediafileinfoService.expireMediaFileInfoByMediaGuid(idList);
+        return new JsonResult().success();
+    }
+
 
 }

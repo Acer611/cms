@@ -3,15 +3,13 @@
 </layui:searchForm>
 
 <div class="layui-btn-group">
-    <!--<layui:accessButton function="media.add"  action="add">增加</layui:accessButton>
-    <layui:accessButton function="media.edit"  action="edit">编辑</layui:accessButton>-->
-    <layui:accessButton function="media.del"  action="del">删除</layui:accessButton>
     <layui:accessButton function="media.online"  action="batchOnline">批量上线</layui:accessButton>
     <layui:accessButton function="media.online"  action="batchOffline">批量下线</layui:accessButton>
     <layui:accessButton function="media.query"  action="queryMedia">查看音频资源</layui:accessButton>
-   <!-- <layui:accessButton function="media.online"  action="new">未上线</layui:accessButton>
-    <layui:accessButton function="media.online"  action="online">已上线</layui:accessButton>-->
+    <layui:accessButton function="media.query"  action="addCategory">挂载分类</layui:accessButton>
 </div>
+
+
 
 <!--<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
     <ul class="layui-tab-title">
@@ -30,6 +28,7 @@
     </div>
 </div>-->
 
+<input id="handle_status" value="" hidden="hidden">
 <table id="mediaTable" lay-filter="mediaTable"></table>
 <!--#} -->
 <script>
@@ -47,7 +46,7 @@ layui.use(['index'], function(){
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="offline">下线</a>
 </script>
 
-<!--<script>
+<script>
     layui.use('element', function(){
         var $ = layui.jquery
             ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
@@ -60,7 +59,10 @@ layui.use(['index'], function(){
 
 
     });
-</script>-->
+</script>
+
+
+
 <style>
     .laytable-cell-1-imageurl{  /*最后的pic为字段的field*/
         height: 100%;
