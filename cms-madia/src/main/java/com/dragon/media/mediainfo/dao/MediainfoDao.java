@@ -25,21 +25,21 @@ public interface MediainfoDao extends BaseMapper<Mediainfo>{
     public void batchOfflineMediainfoByIds( List<String> ids,Date updateDate);
 
     //更新
-    void update(Mediainfo mediainfo);
+    public void update(Mediainfo mediainfo);
 
     /**
      * 根据ID查询专辑信息
-     * @param mediaguid
+     * @param mediaGuid
      * @return
      */
-    List<Mediainfo> queryMediaById(String mediaguid);
+    public List<Mediainfo> queryMediaById(String mediaGuid);
 
     /**
      * 根据ID查询演播者信息
-     * @param mediaguid
+     * @param mediaGuid
      * @return
      */
-    List<Mediainfo> queryAuthorById(String mediaguid);
+    public List<Mediainfo> queryAuthorById(String mediaGuid);
 
     /**
      * 到期且定更专辑信息
@@ -47,4 +47,12 @@ public interface MediainfoDao extends BaseMapper<Mediainfo>{
      * @param updateDate
      */
     void expireMediainfo(List<String> idList, Date updateDate);
+
+    /**
+     * 根据Guid修改专辑的状态
+     * @param guid
+     * @param authState
+     * @param state
+     */
+    void updateMediaStateByGuid(String guid, Integer authState, Integer state,Date updateDate);
 }

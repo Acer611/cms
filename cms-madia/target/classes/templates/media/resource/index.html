@@ -5,11 +5,14 @@
 
 <div class="layui-btn-group">
 
-    <layui:accessButton function="resource.add"  action="add">增加</layui:accessButton>
-    <layui:accessButton function="resource.edit"  action="edit">编辑</layui:accessButton>
+   <!-- <layui:accessButton function="resource.add"  action="add">增加</layui:accessButton>
+    <layui:accessButton function="resource.edit"  action="edit">编辑</layui:accessButton>-->
     <layui:accessButton function="resource.del"  action="del">删除 </layui:accessButton>
+    <layui:accessButton function="resource.add"  action="addResource">添加本地资源</layui:accessButton>
+    <layui:accessButton function="resource.add"  action="upload" id ="upload">上传音频</layui:accessButton>
 </div>
 
+<input id="handle_status" value="" hidden="hidden">
 <table id="resourceTable" lay-filter="resourceTable"></table>
 <!--#} -->
 
@@ -29,4 +32,43 @@ layui.use(['index'], function(){
 
 });
 
+</script>
+
+<script>
+    layui.use(['upload','jquery'], function(){
+        var $ = layui.$,
+            upload = layui.upload;
+
+        //音频上传片
+        var uploadInst = upload.render({
+            elem: '#table-button-upload',
+            url: '/uploadFile?mediaguid='+mediaguid,
+            type:'post',
+            accept: 'audio',
+            size: 102400 ,
+        success:function(data){
+
+                if(data.code == 0){
+                    alert("上传成功");
+                    /* layer.msg('添加成功！', {
+                         icon: 1,
+                         time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                     }, function () {
+                         history.go(0);
+                     });*/
+                    history.go(0);
+                }else{
+                    alert("上传失败");
+                    history.go(0);
+                /*    layer.msg('添加失败！', {
+                        icon: 2,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function () {
+                        history.go(0);
+                    });*/
+                }
+            }
+        });
+
+    });
 </script>

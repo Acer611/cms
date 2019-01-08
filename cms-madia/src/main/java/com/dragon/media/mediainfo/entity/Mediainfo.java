@@ -41,7 +41,7 @@ public class Mediainfo extends BaseEntity{
 
     private String medianame ;
 	
-
+    //1=音频、2=视频、3=课件 4=有声书
     private Integer mediatype ;
 	
 
@@ -56,7 +56,7 @@ public class Mediainfo extends BaseEntity{
 
     private Integer authstate ;
 
-    //专辑状态 0 未上线 1 已上线  2 已线下  3 回收站 4 到期停止更新
+    //专辑状态 0 未上线 1 已上线  2 已线下  3 回收站 4 到期停止更新 5 已完成更新
     private Integer mediastate ;
 	
 
@@ -106,8 +106,8 @@ public class Mediainfo extends BaseEntity{
     private String tags;
     //是否删除
     private Integer delFlag;
-    //资源状态  更新状态
-    private Integer ResourceState;
+    //资源状态  更新状态 0 更新中 1 已完成更新
+    private Integer resourcestate;
     //副标题
     private  String title;
     //音频总数量
@@ -342,12 +342,12 @@ public class Mediainfo extends BaseEntity{
         this.tags = tags;
     }
 
-    public Integer getResourceState() {
-        return ResourceState;
+    public Integer getResourcestate() {
+        return resourcestate;
     }
 
-    public void setResourceState(Integer resourceState) {
-        ResourceState = resourceState;
+    public void setResourcestate(Integer resourcestate) {
+        this.resourcestate = resourcestate;
     }
 
     public String getTitle() {

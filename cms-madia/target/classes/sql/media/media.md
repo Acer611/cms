@@ -79,7 +79,7 @@ queryMediaById
       	LEFT JOIN MediaCategoryDetail AS mcd ON m.MediaGuid = mcd.MediaGuid 
       	LEFT JOIN MediaCategory AS mc  on mcd.CategoryCode=mc.CategoryCode
       WHERE
-      	m.MediaGuid = #mediaguid#
+      	m.MediaGuid=#mediaGuid#
       	
  
       	
@@ -97,6 +97,28 @@ queryAuthorById
         LEFT JOIN AuthorMedia AS am ON m.MediaGuid = am.MediaGuid
         LEFT JOIN AuthorInfo AS a ON am.AuthorGuid = a.AuthorGuid
        WHERE
-        m.MediaGuid = #mediaguid#	
+        m.MediaGuid=#mediaGuid#	
         
 
+queryCategoryByMediaGuid
+===      
+
+* 查询专辑下已有的分类信息
+
+    SELECT
+        m.* 
+    FROM
+        MediaCategoryDetail mc
+        LEFT JOIN MediaCategory m ON mc.CategoryCode = m.CategoryCode 
+    WHERE
+        mc.MediaGuid = #mediaguid#
+        
+        
+        
+updateMediaStateByGuid
+===
+
+*根据专辑的guid修改专辑状态
+
+    update MediaInfo set AuthState = #authState#,  MediaState=#state#, 
+    UpdateDate=#updateDate# where MediaGuid =#guid#

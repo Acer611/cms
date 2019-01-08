@@ -8,7 +8,7 @@ queryByCondition
     t.*
     @}
     from MediaFileInfo t
-    where 1=1 
+    where 1=1 and DelFlag = 0 
     @//数据权限，该sql语句功能点  
     and #function("resource.query")#
     @if(!isEmpty(filetitle)){
@@ -29,7 +29,7 @@ batchDelMediafileinfoByIds
 
 * 批量逻辑删除
 
-    update MediaFileinfo set del_flag = 1 where MediaFileInfoID  in( #join(ids)#)
+    update MediaFileInfo set DelFlag = 1 where MediaFileInfoID  in( #join(ids)#)
     
 
 
@@ -88,4 +88,15 @@ updateResource
 * 根据ID修改资源名称和标签 
 
     update MediaFileInfo set  UpdateDate=#updatedate# ,FileTitle=#filetitle# ,Tags=#tags# where MediaFileInfoID =#mediafileinfoid#
+    
+    
+    
+updateResourceStateByGuid  
+===
+
+* 根据guid 修改资源的状态 
+
+    update MediaFileInfo set  UpdateDate=#updateDate# ,State=#state#  where MediaGuid =#guid#
+    
+
     

@@ -170,6 +170,17 @@ public class MediafileinfoController{
         }
         List<Long> idList = ConvertUtil.str2longs(ids);
         resourceService.batchDelMediafileinfo(idList);
+        //更新专辑的数量
+        Mediafileinfo mediafileinfo = resourceService.queryById(idList.get(0));
+        String mediaGuid = mediafileinfo.getMediaguid();
+        Mediainfo editMediainfo = new Mediainfo();
+        Mediainfo mediainfo = mediainfoService.queryMediaById(mediaGuid);
+        editMediainfo.setFilecount(mediainfo.getFilecount()-idList.size()<0 ? 0 : mediainfo.getFilecount()-idList.size());
+        editMediainfo.setUpdatedate(new Date());
+        editMediainfo.setMediaguid(mediaGuid);
+        //TODO 更新专辑的大小
+        mediainfoService.updateTemplate(editMediainfo);
+
         return new JsonResult().success();
     }
 

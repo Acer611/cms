@@ -1,0 +1,60 @@
+<!--# layout("/common/layout.html",{"jsBase":"/js/media/media/"}){ -->
+
+<div class="layui-container">
+
+    <div>
+        <span> 添加本地资源</span>
+    </div>
+
+    <div>
+        <div class="layui-row">
+            <label> 资源路径地址：</label>
+            <div class="layui-input-block">
+                <input type="text" id="url" name="url"
+                       class="layui-input" lay-verify="required" value="">
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="layui-input-block"  style ="float:right;">
+    <button id="save" class="layui-btn layui-btn-normal layui-btn-radius"   lay-submit lay-filter="*">
+        保存
+    </button>
+    <button id="channel" class="layui-btn layui-btn-normal layui-btn-radius"   lay-submit lay-filter="*">
+        取消
+    </button>
+</div>
+
+<!--#} -->
+
+<script>
+
+    $("#save").click (function(){
+        var mediaguid = '${mediaguid}';
+
+        var path = document.getElementById('url').value;
+
+        //TODO 读取FTP path 路径下的所有文件 生成相应的外网URL地址
+        $.ajax({
+            url:'/ftpUpload?mediaguid='+mediaguid+'&path='+path,
+            dataType:'JSON',
+            type:'post',
+            success:function(data){
+
+                if(data.code == 0){
+                    parent.$("#handle_status").val('1');
+                    parent.layer.closeAll();
+                }else{
+                    parent.$("#handle_status").val('2');
+                    parent.layer.closeAll();
+                }
+
+
+            }
+        }).done().fail().always();
+
+    })
+</script>

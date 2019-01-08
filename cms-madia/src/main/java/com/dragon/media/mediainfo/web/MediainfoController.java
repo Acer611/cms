@@ -95,12 +95,13 @@ public class MediainfoController{
         view.addObject("media", media);
         return view;
     }
+
     @GetMapping(MODEL + "/addCategory.do")
     @Function("media.media.edit")
     @ResponseBody
     public ModelAndView addCategory(String mediaguid) throws Exception {
         ModelAndView view = new ModelAndView("/media/media/addCategory.html");
-        //TODO 获取当前专辑已有的分类信息
+        // 获取当前专辑已有的分类信息
         List<Mediacategory> hasCategoryList = mediacategoryService.queryCategoryByMediaGuid(mediaguid);
         List<Mediacategory>  mediacategorys = mediacategoryService.queryCategoryByCode(MediaConstant.CATEGORY_CODE);
 
@@ -111,6 +112,16 @@ public class MediainfoController{
         view.addObject("hasCategorys",hasCategorys);
         view.addObject("mediaguid", mediaguid);
         view.addObject("categoryList", categorys);
+        return view;
+    }
+
+    @GetMapping(MODEL + "/addResource.do")
+    @Function("media.media.add")
+    @ResponseBody
+    public ModelAndView addResource(String mediaguid){
+        //TODO 资源页面添加
+        ModelAndView view = new ModelAndView("/media/media/addResource.html");
+        view.addObject("mediaguid", mediaguid);
         return view;
     }
 
@@ -147,7 +158,7 @@ public class MediainfoController{
     @Function("media.media.edit")
     @ResponseBody
     public JsonResult<String> update(@Validated(ValidateConfig.UPDATE.class)  Mediainfo media) {
-        boolean success = mediaService.update(media);
+        boolean success = mediaService.updateT(media);
         if (success) {
             return new JsonResult().success();
         } else {
@@ -231,6 +242,34 @@ public class MediainfoController{
         mediaService.expireMediainfo(idList);
         //  对专辑下资源的到期且停更操作
         mediafileinfoService.expireMediaFileInfoByMediaGuid(idList);
+        return new JsonResult().success();
+    }
+
+
+    /**
+     *修改授权状态
+     * @param guid
+     * @param authState
+     * @return
+     */
+    @PostMapping(MODEL + "/changeAuthState")
+    @Function("media.media.online")
+    @ResponseBody
+    public JsonResult changeAuthState(@RequestParam("guid")String guid,@RequestParam("authState") Integer authState){
+        JsonResult result= new JsonResult();
+        if(StringUtils.isEmpty(guid)||authState==null){
+            result.setMsg("传参有误");
+            result.setCode("400");
+            return new JsonResult().fail();
+        }
+
+        if(authState==1){
+            mediafileinfoService.changeAuthState(guid,authState,1);
+            result.setMsg("启用资源的授权成功");
+        }else if(authState==2){
+            mediafileinfoService.changeAuthState(guid,authState,4);
+            result.setMsg("停用资源的授权成功");
+        }
         return new JsonResult().success();
     }
 

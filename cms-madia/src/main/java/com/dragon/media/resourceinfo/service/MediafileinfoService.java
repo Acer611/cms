@@ -3,6 +3,8 @@ package com.dragon.media.resourceinfo.service;
 import java.util.Date;
 import java.util.List;
 
+import com.dragon.media.mediainfo.dao.MediainfoDao;
+import com.dragon.media.mediainfo.entity.Mediainfo;
 import org.beetl.sql.core.engine.PageQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import com.ibeetl.admin.core.service.BaseService;
 public class MediafileinfoService extends BaseService<Mediafileinfo>{
 
     @Autowired private MediafileinfoDao resourceDao;
+    @Autowired private MediainfoDao mediainfoDao;
 
     public PageQuery<Mediafileinfo>queryByCondition(PageQuery query){
         PageQuery ret =  resourceDao.queryByCondition(query);
@@ -32,6 +35,8 @@ public class MediafileinfoService extends BaseService<Mediafileinfo>{
 
     public void batchDelMediafileinfo(List<Long> ids){
         try {
+            //TODO 判断资源是否上线
+
             resourceDao.batchDelMediafileinfoByIds(ids);
         } catch (Exception e) {
             throw new PlatformException("批量删除Mediafileinfo失败", e);
@@ -124,8 +129,23 @@ public class MediafileinfoService extends BaseService<Mediafileinfo>{
      */
     public boolean updateResource(Mediafileinfo resource) {
         resource.setUpdatedate(new Date());
-        resourceDao.updateResource(resource);
+        //resourceDao.updateResource(resource);
+        resourceDao.updateTemplateById(resource);
         return true;
 
+    }
+
+    /**
+     * 修改授权状态
+     * @param guid
+     * @param authState
+     * @param state
+     */
+    public void changeAuthState(String guid, Integer authState,Integer state) {
+        Date date = new Date();
+        //修改专辑的状态
+        mediainfoDao.updateMediaStateByGuid(guid,authState,state,date);
+        //修改专辑下资源的状态
+        resourceDao.updateResourceStateByGuid(guid,state,date);
     }
 }

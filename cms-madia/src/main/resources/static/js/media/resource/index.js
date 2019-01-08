@@ -53,6 +53,11 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                     field : 'filesize', 
                     title : '资源大小',
                     width: 100,
+                    templet:function(d){
+                        var size = d.filesize/1000000;
+                        size =size.toFixed(2)
+                        return size + "M";
+                    },
                 },
                 {
 
@@ -137,7 +142,72 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         var delView = layui.del
                         delView.delBatch();
                     });
-                }
+                },
+                //添加本地资源
+                addResource : function(){
+
+                    //页面层
+                    layer.open({
+                        type: 2,
+                        title: '添加本地资源',
+                        shadeClose: true,
+                        shade: 0.5,
+                        skin:'demo-class',
+                        maxmin: true, //开启最大化最小化按钮
+                        area: ['400px', '300px'],
+                        shift: 2,
+                        content: '/media/media/addResource.do?mediaguid='+ mediaguid,
+
+                        success:function(layero,index){
+                        },
+                        end:function() {
+                            var handle_status = $("#handle_status").val();
+                            if (handle_status == '1') {
+                                layer.msg('添加成功！', {
+                                    icon: 1,
+                                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                                }, function () {
+                                    history.go(0);
+                                });
+                                //dataReload();
+                            } else if (handle_status == '2') {
+                                layer.msg('添加失败！', {
+                                    icon: 2,
+                                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                                }, function () {
+                                    history.go(0);
+                                });
+                                // dataReload();
+                            }
+                        }
+                    });
+
+                },
+
+        /*        upload : function(){
+                    layui.use(['upload','jquery'], function(){
+                        var $ = layui.$,
+                        upload = layui.upload;
+
+                        //音频上传片
+                        var uploadInst = upload.render({
+                            elem: '#table-button-upload',
+                            url: '/uploadFile?mediaguid='+ mediaguid,
+                            type:'post',
+                            success:function(data){
+
+                                if(data.code == 0){
+                                    alert("上传成功");
+
+                                }else{
+                                    alert("上传失败");
+                                }
+                            }
+                        });
+
+                    });
+                }*/
+
         };
             $('.ext-toolbar').on('click', function() {
                 var type = $(this).data('type');
@@ -174,6 +244,9 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
 
         }
     }
+
+
     exports('index',view);
 
 });
+

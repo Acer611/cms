@@ -174,7 +174,7 @@
 
             <div>
                         <textarea id="note" name="note" class="layui-textarea"
-                                  lay-verify="note" value="${media.note}">${media.note}</textarea>
+                                  lay-verify="note" >${media.note}</textarea>
             </div>
 
         </div>
@@ -203,7 +203,7 @@ layui.use(['edit'], function(){
 
         layedit.set({
             uploadImage: {
-                url: '' //接口url
+                url: '/uploadimg/' //接口url
                 ,type: '' //默认post
             }
         });
@@ -226,7 +226,7 @@ layui.use(['edit'], function(){
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#test1'
-            ,url: '/upload/'
+            ,url: '/uploadimg/'
             ,before: function(obj){//文件上传前的回调
                 //预读本地文件示例，不支持ie8
                 obj.preview(function(index, file, result){
@@ -234,12 +234,16 @@ layui.use(['edit'], function(){
                 });
             }
             ,done: function(res){
+                debugger;
                 //如果上传失败
                 if(res.code > 0){
                     return layer.msg('上传失败');
                 }
                 //上传成功
+                var url = res.data.src;
+                //alert(url)
                 //TODO 把上传成功的地址赋值给imageurl $('#imageurl').attr('value', result);
+                $('#imageurl').attr('value', url);
             }
             ,error: function(){
                 //演示失败状态，并实现重传

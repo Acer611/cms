@@ -67,6 +67,25 @@
         </div>
     </div>
 
+
+    <div class="layui-row">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">时长</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="duration" name="duration"    class="layui-input" lay-verify="required|number" value="${resource.duration}" >
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">资源大小</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="filesize" name="filesize"     class="layui-input" lay-verify="required|number" value="${resource.filesize}">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 <!--    <div class="layui-row">
         <div class="layui-form-item">
 

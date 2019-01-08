@@ -11,7 +11,7 @@
         <module name="madia" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8">
+    <bytecodeTargetLevel>
       <module name="admin" target="1.8" />
       <module name="admin-console" target="1.8" />
       <module name="admin-core" target="1.8" />
@@ -21,10 +21,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="admin" options="-parameters" />
-      <module name="admin-console" options="-parameters" />
-      <module name="admin-core" options="-parameters" />
-      <module name="madia" options="-parameters" />
+      <module name="admin" options="" />
+      <module name="admin-console" options="" />
+      <module name="admin-core" options="" />
+      <module name="madia" options="" />
     </option>
   </component>
 </project>

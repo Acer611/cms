@@ -44,10 +44,28 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                     },
                     {
                         field : 'filecount',
-                        title : '音频数量',
+                        title : '已更新数量',
                         width: 100
                     },
 
+                    {
+                        field : 'totalCount',
+                        title : '音频总数',
+                        width: 100,
+                    },
+                    {
+                        field : 'resourcestate',
+                        title : '更新状态',
+                        width: 100,
+                        templet:function(d){
+                            switch (d.resourcestate) {
+                                case 0 : d.resourcestate = "更新中" ; break;
+                                case 1 : d.resourcestate= "完成更新" ; break;
+                                default: d.resourcestate = "" ;break;
+                            }
+                            return d.resourcestate;
+                        },
+                    },
                     {
                         field : 'categoryName',
                         title : '分类',
@@ -86,20 +104,26 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         width: 180,
                     },
 
+
                     {
                         field : 'price',
                         title : '定价',
-                        width: 60,
+                        width: 100,
                     },
                     {
                         field : 'duration',
                         title : '时长',
-                        width: 60,
+                        width: 100,
                     },
                     {
                         field : 'filesize',
                         title : '文件大小',
                         width: 100,
+                        templet:function(d){
+                            var size = d.filesize/1000000;
+                            size =size.toFixed(2)
+                            return size + "M";
+                        },
                     },
                     {
                         field : 'mediaguid',
@@ -209,7 +233,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         batchOfflineView.batchOffline();
                     });
                 },
-                queryMedia : function() { // 获取选中数目
+                queryMedia : function() { // 获对应的音频列表
                     var data = Common.getOneFromTable(table,"mediaTable");
                     if(data==null){
                         return ;
@@ -233,13 +257,7 @@ layui.define([ 'form', 'laydate', 'table' ], function(exports) {
                         area: ['1000px', '660px'],
                         shift: 2,
                         content: '/media/media/addCategory.do?mediaguid='+ data.mediaguid,
-                     /*   btn: ['保存分类', '取消'] //只是为了演示
-                        ,yes: function(){
-                            $(that).click();
-                        }
-                        ,btn2: function(){
-                            layer.closeAll();
-                        }*/
+
                         success:function(layero,index){
                         },
                         end:function() {

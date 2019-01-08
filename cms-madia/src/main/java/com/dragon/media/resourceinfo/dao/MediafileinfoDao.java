@@ -61,8 +61,16 @@ public interface MediafileinfoDao extends BaseMapper<Mediafileinfo>{
     void expireMediaFileInfoByMediaGuid(List<String> idList, Date updateDate);
 
     /**
-     * 修改资源信息（）修改名称和标签
+     * 修改资源信息（修改名称和标签）
      * @param resource
      */
     void updateResource(Mediafileinfo resource);
+
+
+    /**
+     * 根据guid修改资源的状态
+     * @param guid
+     * @param state
+     */
+    void updateResourceStateByGuid(String guid, Integer state,Date updateDate);
 }

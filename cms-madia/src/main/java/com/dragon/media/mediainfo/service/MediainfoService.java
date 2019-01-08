@@ -34,19 +34,24 @@ public class MediainfoService extends BaseService<Mediainfo>{
             // 查询分类信息
             List<String> categoryNameList = new ArrayList<>();
             String categoryName = "";
-            System.out.println(mediainfo.getMediaguid());
-            List<Mediainfo> mediainfoList = mediaDao.queryMediaById(mediainfo.getMediaguid());
+            String mediaGuid = mediainfo.getMediaguid();
+            System.out.println("==================================" + mediaGuid );
+            List<Mediainfo> mediainfoList = mediaDao.queryMediaById(mediaGuid);
             for (Mediainfo tempmediainfo:mediainfoList
                  ) {
-                categoryNameList.add(tempmediainfo.getCategoryName());
-                categoryName = categoryName + tempmediainfo.getCategoryName()+",";
+                if(null!=tempmediainfo.getCategoryName()&& !"null".equalsIgnoreCase(tempmediainfo.getCategoryName())){
+                    categoryNameList.add(tempmediainfo.getCategoryName());
+                    categoryName = categoryName + tempmediainfo.getCategoryName()+",";
+                }
             }
-            categoryName = categoryName.substring(0,categoryName.length()-1);
+            if(categoryName.length()>1){
+                categoryName = categoryName.substring(0,categoryName.length()-1);
+            }
             mediainfo.setCategoryNameList(categoryNameList);
             mediainfo.setCategoryName(categoryName);
             // 查询演播者信息
             String author = "";
-            List<Mediainfo> mediaAuthorinfoList = mediaDao.queryAuthorById(mediainfo.getMediaguid());
+            List<Mediainfo> mediaAuthorinfoList = mediaDao.queryAuthorById(mediaGuid);
             for (Mediainfo tempmediainfo:mediaAuthorinfoList
                  ) {
                 author = author + tempmediainfo.getAuthor()+",";
@@ -98,7 +103,7 @@ public class MediainfoService extends BaseService<Mediainfo>{
      * @param mediainfo
      * @return
      */
-    public boolean update(Mediainfo mediainfo){
+    public boolean updateT(Mediainfo mediainfo){
 
         try {
             Date updateDate = new Date();
